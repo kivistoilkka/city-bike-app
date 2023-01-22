@@ -16,9 +16,9 @@ class TestJourneyService(unittest.TestCase):
                          datetime.fromisoformat('2021-05-01T00:00:11'))
         self.assertEqual(result.return_time,
                          datetime.fromisoformat('2021-05-01T00:04:34'))
-        self.assertEqual(result.departure_station_id, 138)
+        self.assertEqual(result.departure_station_id, '138')
         self.assertEqual(result.departure_station_name, 'Arabiankatu')
-        self.assertEqual(result.return_station_id, 138)
+        self.assertEqual(result.return_station_id, '138')
         self.assertEqual(result.return_station_name, 'Arabiankatu')
         self.assertEqual(result.distance, 1057)
         self.assertEqual(result.duration, 259)
