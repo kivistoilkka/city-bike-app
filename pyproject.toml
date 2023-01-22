@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "city-bike-app"
+version = "0.0.1"
+description = ""
+authors = ["Ilkka Kivistö <ilkka.kivisto@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "city_bike_app"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+invoke = "^2.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.0.5"
+pytest = "^7.2.1"
+pylint = "^2.15.10"
+autopep8 = "^2.0.1"
+robotframework = "^6.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
