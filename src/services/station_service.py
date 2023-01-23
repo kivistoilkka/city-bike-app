@@ -12,12 +12,21 @@ class StationService:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
                 if line[0] == 'FID':
                     continue
-                station = self.parse_station(line)
-                stations.append(station)
+                try:
+                    station = self.parse_station(line)
+                    stations.append(station)
+                except ValueError:
+                    continue
         return stations
 
-    @staticmethod
-    def parse_station(line: list) -> Station:
+    def validate_station(self, station:Station) -> bool:
+        if station.x_coord < 19 or station.x_coord > 32:
+            return False
+        if station.y_coord < 59 or station.y_coord > 71:
+            return False
+        return True
+        
+    def parse_station(self, line: list) -> Station:
         station_id = line[1]
         name_fi, name_sv, name_en = line[2:5]
         address_fi, address_sv = line[5:7]
@@ -28,9 +37,14 @@ class StationService:
         x_coord = float(line[11])
         y_coord = float(line[12])
 
-        return Station(
+        station = Station(
             station_id, name_fi, name_sv, name_en,
             address_fi, address_sv,
             city_fi, city_sv, operator, capacity,
             x_coord, y_coord
         )
+
+        validationResult = self.validate_station(station)
+        if not validationResult:
+            raise ValueError
+        return station
