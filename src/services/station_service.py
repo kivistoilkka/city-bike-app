@@ -7,10 +7,14 @@ class StationService:
         pass
 
     def parse_csv(self, file) -> list:
+        stations = []
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
-                print(line)
-                print('---')
+                if line[0] == 'FID':
+                    continue
+                station = self.parse_station(line)
+                stations.append(station)
+        return stations
 
     @staticmethod
     def parse_station(line: list) -> Station:

@@ -25,3 +25,7 @@ class Station:
         self.capacity = capacity
         self.x_coord = x_coord
         self.y_coord = y_coord
+
+    def __str__(self) -> str:
+        return f'{self.station_id} {self.name_fi}: {self.address_fi}, \
+x={self.x_coord}, y={self.y_coord}'

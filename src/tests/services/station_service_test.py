@@ -69,3 +69,21 @@ class TestStationService(unittest.TestCase):
         self.assertEqual(result.capacity, 30)
         self.assertEqual(result.x_coord, 24.9502114714031)
         self.assertEqual(result.y_coord, 60.155369615074)
+
+    def test_reads_and_parses_test_file_with_valid_stations(self):
+        result = self.service.parse_csv('./src/tests/data/station_test.csv')
+
+        self.assertEqual(
+            str(result[0]), '501 Hanasaari: Hanasaarenranta 1, x=24.840319, y=60.16582')
+        self.assertEqual(str(
+            result[1]), '539 Aalto-yliopisto (M), Tietot: Tietotie 4, x=24.820099, y=60.184987')
+        self.assertEqual(str(
+            result[2]), '541 Aalto-yliopisto (M), Korkea: Otaniementie 10, x=24.826671, y=60.184312')
+        self.assertEqual(str(
+            result[3]), '902 Derby Business Park: Tarvonsalmenkatu 17, x=24.835356, y=60.209017')
+        self.assertEqual(str(
+            result[4]), '001 Kaivopuisto: Meritori 1, x=24.9502114714031, y=60.155369615074')
+        self.assertEqual(str(
+            result[5]), '002 Laivasillankatu: Laivasillankatu 14, x=24.9565097715858, y=60.1609890692806')
+        self.assertEqual(str(
+            result[6]), '405 Jollas: Jollaksentie 33, x=25.0616678668253, y=60.1644074899774')
