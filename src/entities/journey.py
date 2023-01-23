@@ -17,3 +17,8 @@ class Journey:
         self.return_station_name = ret_station_name
         self.distance = distance
         self.duration = duration
+
+    def __str__(self) -> str:
+        return f'{self.departure_station_id} {self.departure_station_name} -> \
+{self.return_station_id} {self.return_station_name}, \
+{self.distance} m, {self.duration} sec'

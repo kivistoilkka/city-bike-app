@@ -46,3 +46,23 @@ class TestJourneyService(unittest.TestCase):
         self.assertEqual(result.return_station_name, 'Jämeräntaival')
         self.assertEqual(result.distance, 702)
         self.assertEqual(result.duration, 210)
+
+    def test_reads_and_parses_test_file_with_valid_journeys(self):
+        result = self.service.parse_csv('./src/tests/data/journey_test.csv')
+
+        self.assertEqual(
+            str(result[0]), '045 Brahen kenttä -> 004 Viiskulma, 4149 m, 1118 sec')
+        self.assertEqual(
+            str(result[1]), '222 Huovitie -> 095 Munkkiniemen aukio, 3171 m, 665 sec')
+        self.assertEqual(
+            str(result[2]), '541 Aalto-yliopisto (M), Korkeakouluaukio -> 517 Länsituuli, 2360 m, 1614 sec')
+        self.assertEqual(
+            str(result[3]), '009 Erottajan aukio -> 040 Hakaniemi (M), 1602 m, 405 sec')
+        self.assertEqual(
+            str(result[4]), '239 Viikin tiedepuisto -> 286 Mamsellimyllynkatu, 3608 m, 1529 sec')
+        self.assertEqual(
+            str(result[5]), '089 Tilkanvierto -> 711 Kirjurinkuja, 5660 m, 1583 sec')
+        self.assertEqual(
+            str(result[6]), '113 Pasilan asema -> 078 Messeniuksenkatu, 1602 m, 553 sec')
+        self.assertEqual(
+            str(result[7]), '325 Mellunmäki (M) -> 283 Alakiventie, 3389 m, 900 sec')

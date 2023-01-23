@@ -1,3 +1,4 @@
+import csv
 from datetime import datetime
 from entities.journey import Journey
 
@@ -5,6 +6,16 @@ from entities.journey import Journey
 class JourneyService:
     def __init__(self) -> None:
         pass
+
+    def parse_csv(self, file) -> list:
+        journeys = []
+        with open(file, encoding='utf-8') as csv_file:
+            for line in csv.reader(csv_file, quotechar='"', delimiter=','):
+                if line[0] == 'Departure':
+                    continue
+                journey = self.parse_journey(line)
+                journeys.append(journey)
+        return journeys
 
     @staticmethod
     def parse_journey(line: list) -> Journey:
