@@ -69,7 +69,8 @@ class TestJourneyService(unittest.TestCase):
             str(result[7]), '325 Mellunmäki (M) -> 283 Alakiventie, 3389 m, 900 sec')
 
     def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
-        result = self.service.parse_csv('./src/tests/data/invalid_journeys_test.csv')
+        result = self.service.parse_csv(
+            './src/tests/data/invalid_journeys_test.csv')
 
         self.assertEqual(len(result), 3)
         self.assertEqual(

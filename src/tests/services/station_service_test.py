@@ -90,7 +90,8 @@ class TestStationService(unittest.TestCase):
             result[6]), '405 Jollas: Jollaksentie 33, x=25.0616678668253, y=60.1644074899774')
 
     def test_reads_and_parses_test_file_with_some_invalid_stations(self):
-        result = self.service.parse_csv('./src/tests/data/invalid_stations_test.csv')
+        result = self.service.parse_csv(
+            './src/tests/data/invalid_stations_test.csv')
 
         self.assertEqual(len(result), 2)
         self.assertEqual(

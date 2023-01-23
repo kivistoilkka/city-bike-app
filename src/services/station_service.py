@@ -19,13 +19,13 @@ class StationService:
                     continue
         return stations
 
-    def validate_station(self, station:Station) -> bool:
+    def validate_station(self, station: Station) -> bool:
         if station.x_coord < 19 or station.x_coord > 32:
             return False
         if station.y_coord < 59 or station.y_coord > 71:
             return False
         return True
-        
+
     def parse_station(self, line: list) -> Station:
         station_id = line[1]
         name_fi, name_sv, name_en = line[2:5]
@@ -44,7 +44,7 @@ class StationService:
             x_coord, y_coord
         )
 
-        validationResult = self.validate_station(station)
-        if not validationResult:
+        validation_result = self.validate_station(station)
+        if not validation_result:
             raise ValueError
         return station

@@ -20,7 +20,7 @@ class JourneyService:
                     continue
         return journeys
 
-    def validate_journey(self, journey:Journey) -> bool:
+    def validate_journey(self, journey: Journey) -> bool:
         if (journey.return_time - journey.departure_time) < timedelta(0):
             return False
         if int(journey.departure_station_id) < 0:
