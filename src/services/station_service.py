@@ -1,3 +1,4 @@
+import csv
 from entities.station import Station
 
 
@@ -5,18 +6,23 @@ class StationService:
     def __init__(self) -> None:
         pass
 
+    def parse_csv(self, file) -> list:
+        with open(file, encoding='utf-8') as csv_file:
+            for line in csv.reader(csv_file, quotechar='"', delimiter=','):
+                print(line)
+                print('---')
+
     @staticmethod
-    def parse_station(text: str) -> Station:
-        parts = text.split(',')
-        station_id = parts[1]
-        name_fi, name_sv, name_en = parts[2:5]
-        address_fi, address_sv = parts[5:7]
-        city_fi = parts[7] if parts[7] != ' ' else 'Helsinki'
-        city_sv = parts[8] if parts[8] != ' ' else 'Helsingfors'
-        operator = parts[9] if parts[9] != ' ' else ''
-        capacity = int(parts[10])
-        x_coord = float(parts[11])
-        y_coord = float(parts[12])
+    def parse_station(line: list) -> Station:
+        station_id = line[1]
+        name_fi, name_sv, name_en = line[2:5]
+        address_fi, address_sv = line[5:7]
+        city_fi = line[7] if line[7] != ' ' else 'Helsinki'
+        city_sv = line[8] if line[8] != ' ' else 'Helsingfors'
+        operator = line[9] if line[9] != ' ' else ''
+        capacity = int(line[10])
+        x_coord = float(line[11])
+        y_coord = float(line[12])
 
         return Station(
             station_id, name_fi, name_sv, name_en,

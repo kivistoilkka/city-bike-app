@@ -1,6 +1,4 @@
-class TextProducer:
-    def produce_text(self):
-        return 'Hello world!'
+from services.station_service import StationService
 
 
 class App:
@@ -8,5 +6,6 @@ class App:
         pass
 
     def run(self):
-        text_producer = TextProducer()
-        print(text_producer.produce_text())
+        station_service = StationService()
+        stations = station_service.parse_csv(
+            './src/tests/data/station_test.csv')

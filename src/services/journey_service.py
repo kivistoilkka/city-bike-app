@@ -7,16 +7,15 @@ class JourneyService:
         pass
 
     @staticmethod
-    def parse_journey(text: str) -> Journey:
-        parts = text.split(',')
-        dep_time = datetime.fromisoformat(parts[0])
-        ret_time = datetime.fromisoformat(parts[1])
-        dep_station_id = parts[2]
-        dep_station_name = parts[3]
-        ret_station_id = parts[4]
-        ret_station_name = parts[5]
-        distance = int(parts[6])
-        duration = int(parts[7])
+    def parse_journey(line: list) -> Journey:
+        dep_time = datetime.fromisoformat(line[0])
+        ret_time = datetime.fromisoformat(line[1])
+        dep_station_id = line[2]
+        dep_station_name = line[3]
+        ret_station_id = line[4]
+        ret_station_name = line[5]
+        distance = int(line[6])
+        duration = int(line[7])
 
         return Journey(
             dep_time,

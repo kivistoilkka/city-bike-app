@@ -6,10 +6,13 @@ class TestStationService(unittest.TestCase):
     def setUp(self):
         self.service = StationService()
 
-    def test_parses_valid_string(self):
+    def test_parses_valid_line(self):
         result = self.service.parse_station(
-            '1,501,Hanasaari,Hanaholmen,Hanasaari,Hanasaarenranta 1,\
-Hanaholmsstranden 1,Espoo,Esbo,CityBike Finland,10,24.840319,60.16582'
+            [
+                '1', '501', 'Hanasaari', 'Hanaholmen', 'Hanasaari', 'Hanasaarenranta 1',
+                'Hanaholmsstranden 1', 'Espoo', 'Esbo', 'CityBike Finland', '10',
+                '24.840319', '60.16582'
+            ]
         )
 
         self.assertEqual(result.station_id, '501')
@@ -25,9 +28,33 @@ Hanaholmsstranden 1,Espoo,Esbo,CityBike Finland,10,24.840319,60.16582'
         self.assertEqual(result.x_coord, 24.840319)
         self.assertEqual(result.y_coord, 60.16582)
 
+    def test_parses_valid_line_with_comma_as_part_of_the_name(self):
+        result = self.service.parse_station(
+            [
+                '22', '539', 'Aalto-yliopisto (M), Tietot', 'Aalto-universitetet (M),',
+                'Aalto University (M), Tietotie', 'Tietotie 4', 'Datavägen 4', 'Espoo',
+                'Esbo', 'CityBike Finland', '20', '24.820099', '60.184987'
+            ]
+        )
+        self.assertEqual(result.station_id, '539')
+        self.assertEqual(result.name_fi, 'Aalto-yliopisto (M), Tietot')
+        self.assertEqual(result.name_sv, 'Aalto-universitetet (M),')
+        self.assertEqual(result.name_en, 'Aalto University (M), Tietotie')
+        self.assertEqual(result.address_fi, 'Tietotie 4')
+        self.assertEqual(result.address_sv, 'Datavägen 4')
+        self.assertEqual(result.city_fi, 'Espoo')
+        self.assertEqual(result.city_sv, 'Esbo')
+        self.assertEqual(result.operator, 'CityBike Finland')
+        self.assertEqual(result.capacity, 20)
+        self.assertEqual(result.x_coord, 24.820099)
+        self.assertEqual(result.y_coord, 60.184987)
+
     def test_parses_valid_string_for_station_in_Helsinki(self):
         result = self.service.parse_station(
-            '111,001,Kaivopuisto,Brunnsparken,Kaivopuisto,Meritori 1,Havstorget 1, , , ,30,24.9502114714031,60.155369615074'
+            [
+                '111', '001', 'Kaivopuisto', 'Brunnsparken', 'Kaivopuisto', 'Meritori 1',
+                'Havstorget 1', ' ', ' ', ' ', '30', '24.9502114714031', '60.155369615074'
+            ]
         )
 
         self.assertEqual(result.station_id, '001')
