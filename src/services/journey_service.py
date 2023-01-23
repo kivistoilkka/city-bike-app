@@ -1,5 +1,5 @@
 import csv
-from datetime import datetime
+from datetime import datetime, timedelta
 from entities.journey import Journey
 
 
@@ -13,12 +13,27 @@ class JourneyService:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
                 if line[0] == 'Departure':
                     continue
-                journey = self.parse_journey(line)
-                journeys.append(journey)
+                try:
+                    journey = self.parse_journey(line)
+                    journeys.append(journey)
+                except ValueError:
+                    continue
         return journeys
 
-    @staticmethod
-    def parse_journey(line: list) -> Journey:
+    def validate_journey(self, journey:Journey) -> bool:
+        if (journey.return_time - journey.departure_time) < timedelta(0):
+            return False
+        if int(journey.departure_station_id) < 0:
+            return False
+        if int(journey.return_station_id) < 0:
+            return False
+        if journey.distance < 10:
+            return False
+        if journey.duration < 10:
+            return False
+        return True
+
+    def parse_journey(self, line: list) -> Journey:
         dep_time = datetime.fromisoformat(line[0])
         ret_time = datetime.fromisoformat(line[1])
         dep_station_id = line[2]
@@ -28,7 +43,7 @@ class JourneyService:
         distance = int(line[6])
         duration = int(line[7])
 
-        return Journey(
+        journey = Journey(
             dep_time,
             ret_time,
             dep_station_id,
@@ -38,3 +53,8 @@ class JourneyService:
             distance,
             duration
         )
+
+        validation_result = self.validate_journey(journey)
+        if not validation_result:
+            raise ValueError
+        return journey

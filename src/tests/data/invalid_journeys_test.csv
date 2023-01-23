@@ -1,0 +1,12 @@
+Departure,Return,Departure station id,Departure station name,Return station id,Return station name,Covered distance (m),Duration (sec.)
+2021-05-31T20:47:12,2021-05-31T21:05:56,045,Brahen kenttä,004,Viiskulma,4149,1118
+2021-05-31T20:56:55,2021-05-31T20:45:46,222,Huovitie,095,Munkkiniemen aukio,3171,665
+2021-31T20:41:56,2021-05-31T21:08:56,541,"Aalto-yliopisto (M), Korkeakouluaukio",517,Länsituuli,2360,1614
+2021-06-30T23:59:34,07-01T00:06:23,009,Erottajan aukio,040,Hakaniemi (M),1602,405
+2021-06-30T23:39:30,2021-07-01T00:05:04,-239,Viikin tiedepuisto,286,Mamsellimyllynkatu,3608,1529
+2021-06-01T00:00:01,2021-06-01T00:26:27,089,Tilkanvierto,711,Kirjurinkuja,5660,1583
+2021-07-31T23:59:59,2021-08-01T00:09:15,113,Pasilan asema,-078,Messeniuksenkatu,1602,553
+2021-07-31T23:51:08,2021-08-01T00:06:13,three-two-five,Mellunmäki (M),283,Alakiventie,3389,900
+2021-07-10T23:29:16,2021-07-10T23:29:36,011,Unioninkatu,011,Unioninkatu,9,20
+2021-07-10T23:04:44,2021-07-10T23:11:28,016,Liisanpuistikko,012,Kanavaranta,706,9
+2021-07-10T23:04:17,2021-07-10T23:29:15,030,Itämerentori,010,Kasarmitori,2983,1493

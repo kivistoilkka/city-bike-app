@@ -50,6 +50,7 @@ class TestJourneyService(unittest.TestCase):
     def test_reads_and_parses_test_file_with_valid_journeys(self):
         result = self.service.parse_csv('./src/tests/data/journey_test.csv')
 
+        self.assertEqual(len(result), 8)
         self.assertEqual(
             str(result[0]), '045 Brahen kenttä -> 004 Viiskulma, 4149 m, 1118 sec')
         self.assertEqual(
@@ -66,3 +67,14 @@ class TestJourneyService(unittest.TestCase):
             str(result[6]), '113 Pasilan asema -> 078 Messeniuksenkatu, 1602 m, 553 sec')
         self.assertEqual(
             str(result[7]), '325 Mellunmäki (M) -> 283 Alakiventie, 3389 m, 900 sec')
+
+    def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
+        result = self.service.parse_csv('./src/tests/data/invalid_journeys_test.csv')
+
+        self.assertEqual(len(result), 3)
+        self.assertEqual(
+            str(result[0]), '045 Brahen kenttä -> 004 Viiskulma, 4149 m, 1118 sec')
+        self.assertEqual(
+            str(result[1]), '089 Tilkanvierto -> 711 Kirjurinkuja, 5660 m, 1583 sec')
+        self.assertEqual(
+            str(result[2]), '030 Itämerentori -> 010 Kasarmitori, 2983 m, 1493 sec')
