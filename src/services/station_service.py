@@ -28,19 +28,22 @@ class StationService:
 
     def parse_station(self, line: list) -> Station:
         station_id = line[1]
-        name_fi, name_sv, name_en = line[2:5]
-        address_fi, address_sv = line[5:7]
-        city_fi = line[7] if line[7] != ' ' else 'Helsinki'
-        city_sv = line[8] if line[8] != ' ' else 'Helsingfors'
-        operator = line[9] if line[9] != ' ' else ''
-        capacity = int(line[10])
+        name_fi = line[2]
+        # name_sv, name_en = line[3:5]
+        address_fi = line[5]
+        # address_sv = line[6]
+        # city_fi = line[7] if line[7] != ' ' else 'Helsinki'
+        # city_sv = line[8] if line[8] != ' ' else 'Helsingfors'
+        # operator = line[9] if line[9] != ' ' else ''
+        # capacity = int(line[10])
         x_coord = float(line[11])
         y_coord = float(line[12])
 
         station = Station(
-            station_id, name_fi, name_sv, name_en,
-            address_fi, address_sv,
-            city_fi, city_sv, operator, capacity,
+            station_id, name_fi,
+            # name_sv, name_en,
+            address_fi,
+            # address_sv, city_fi, city_sv, operator, capacity,
             x_coord, y_coord
         )
 

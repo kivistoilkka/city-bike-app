@@ -1,24 +1,25 @@
+from datetime import datetime
+from entities.station import Station
+
+
 class Journey:
     def __init__(self,
-                 dep_time,
-                 ret_time,
-                 dep_station_id,
-                 dep_station_name,
-                 ret_station_id,
-                 ret_station_name,
-                 distance,
-                 duration
+                 dep_time: datetime,
+                 ret_time: datetime,
+                 dep_station: Station,
+                 ret_station: Station,
+                 distance: int,
+                 duration: int
                  ) -> None:
         self.departure_time = dep_time
         self.return_time = ret_time
-        self.departure_station_id = dep_station_id
-        self.departure_station_name = dep_station_name
-        self.return_station_id = ret_station_id
-        self.return_station_name = ret_station_name
+        self.departure_station = dep_station
+        self.return_station = ret_station
         self.distance = distance
         self.duration = duration
 
     def __str__(self) -> str:
-        return f'{self.departure_station_id} {self.departure_station_name} -> \
-{self.return_station_id} {self.return_station_name}, \
+        return f'{str(self.departure_station.station_id).zfill(3)} \
+{self.departure_station.name_fi} -> \
+{str(self.return_station.station_id).zfill(3)} {self.return_station.name_fi}, \
 {self.distance} m, {self.duration} sec'

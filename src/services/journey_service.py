@@ -4,8 +4,8 @@ from entities.journey import Journey
 
 
 class JourneyService:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, station_service) -> None:
+        self.station_service = station_service
 
     def parse_csv(self, file) -> list:
         journeys = []
@@ -23,10 +23,6 @@ class JourneyService:
     def validate_journey(self, journey: Journey) -> bool:
         if (journey.return_time - journey.departure_time) < timedelta(0):
             return False
-        if int(journey.departure_station_id) < 0:
-            return False
-        if int(journey.return_station_id) < 0:
-            return False
         if journey.distance < 10:
             return False
         if journey.duration < 10:
@@ -36,20 +32,22 @@ class JourneyService:
     def parse_journey(self, line: list) -> Journey:
         dep_time = datetime.fromisoformat(line[0])
         ret_time = datetime.fromisoformat(line[1])
-        dep_station_id = line[2]
-        dep_station_name = line[3]
-        ret_station_id = line[4]
-        ret_station_name = line[5]
+        dep_station_id = int(line[2])
+        if dep_station_id < 0:
+            raise ValueError
+        dep_station = self.station_service.get_station(dep_station_id)
+        ret_station_id = int(line[4])
+        if ret_station_id < 0:
+            raise ValueError
+        ret_station = self.station_service.get_station(ret_station_id)
         distance = int(line[6])
         duration = int(line[7])
 
         journey = Journey(
             dep_time,
             ret_time,
-            dep_station_id,
-            dep_station_name,
-            ret_station_id,
-            ret_station_name,
+            dep_station,
+            ret_station,
             distance,
             duration
         )
