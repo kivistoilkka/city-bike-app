@@ -5,7 +5,6 @@ description = ""
 authors = ["Ilkka Kivistö <ilkka.kivisto@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "city_bike_app"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
