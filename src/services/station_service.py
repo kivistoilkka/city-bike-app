@@ -1,10 +1,12 @@
 import csv
 from src.models.station import Station
+from src.repositories.station_repository import StationRepository
 
 
 class StationService:
-    def __init__(self) -> None:
-        pass
+    def __init__(self, db) -> None:
+        self.db = db
+        self.station_repository = StationRepository(db)
 
     def parse_csv(self, file) -> list:
         stations = []
@@ -41,3 +43,6 @@ class StationService:
         if not validation_result:
             raise ValueError
         return station
+
+    def get_station(self, id:int) -> Station:
+        return self.station_repository.get_station(id)

@@ -7,7 +7,7 @@ class JourneyService:
     def __init__(self, station_service) -> None:
         self.station_service = station_service
 
-    def parse_csv(self, file) -> list:
+    def parse_csv(self, file, logs=False) -> list:
         journeys = []
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
@@ -16,6 +16,8 @@ class JourneyService:
                 try:
                     journey = self.parse_journey(line)
                     journeys.append(journey)
+                    if logs:
+                        print(journey)
                 except ValueError:
                     continue
         return journeys
@@ -46,8 +48,8 @@ class JourneyService:
         journey = Journey(
             dep_time,
             ret_time,
-            dep_station,
-            ret_station,
+            dep_station.id,
+            ret_station.id,
             distance,
             duration
         )

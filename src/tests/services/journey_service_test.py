@@ -33,6 +33,8 @@ class MockStationService:
         }
 
     def get_station(self, id: int):
+        if id not in self.stations:
+            raise ValueError
         return self.stations[id]
 
 
@@ -53,10 +55,8 @@ class TestJourneyService(unittest.TestCase):
                          datetime.fromisoformat('2021-05-01T00:00:11'))
         self.assertEqual(result.return_time,
                          datetime.fromisoformat('2021-05-01T00:04:34'))
-        self.assertEqual(result.departure_station.id, 138)
-        self.assertEqual(result.departure_station.name_fi, 'Arabiankatu')
-        self.assertEqual(result.return_station.id, 138)
-        self.assertEqual(result.return_station.name_fi, 'Arabiankatu')
+        self.assertEqual(result.departure_station, 138)
+        self.assertEqual(result.return_station, 138)
         self.assertEqual(result.distance, 1057)
         self.assertEqual(result.duration, 259)
 
@@ -73,11 +73,8 @@ class TestJourneyService(unittest.TestCase):
                          datetime.fromisoformat('2021-05-31T21:48:34'))
         self.assertEqual(result.return_time,
                          datetime.fromisoformat('2021-05-31T21:52:05'))
-        self.assertEqual(result.departure_station.id, 541)
-        self.assertEqual(result.departure_station.name_fi,
-                         'Aalto-yliopisto (M), Korkea')
-        self.assertEqual(result.return_station.id, 547)
-        self.assertEqual(result.return_station.name_fi, 'Jämeräntaival')
+        self.assertEqual(result.departure_station, 541)
+        self.assertEqual(result.return_station, 547)
         self.assertEqual(result.distance, 702)
         self.assertEqual(result.duration, 210)
 
@@ -86,30 +83,31 @@ class TestJourneyService(unittest.TestCase):
 
         self.assertEqual(len(result), 8)
         self.assertEqual(
-            str(result[0]), '045 Brahen kenttä -> 004 Viiskulma, 4149 m, 1118 sec')
+            str(result[0]), '2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec')
         self.assertEqual(
-            str(result[1]), '222 Huovitie -> 095 Munkkiniemen aukio, 3171 m, 665 sec')
+            str(result[1]), '2021-05-31 20:45:46 222 -> 095 2021-05-31 20:56:55, 3171 m, 665 sec')
         self.assertEqual(
-            str(result[2]), '541 Aalto-yliopisto (M), Korkea -> 517 Länsituuli, 2360 m, 1614 sec')
+            str(result[2]), '2021-05-31 20:41:56 541 -> 517 2021-05-31 21:08:56, 2360 m, 1614 sec')
         self.assertEqual(
-            str(result[3]), '009 Erottajan aukio -> 040 Hakaniemi (M), 1602 m, 405 sec')
+            str(result[3]), '2021-06-30 23:59:34 009 -> 040 2021-07-01 00:06:23, 1602 m, 405 sec')
         self.assertEqual(
-            str(result[4]), '239 Viikin tiedepuisto -> 286 Mamsellimyllynkatu, 3608 m, 1529 sec')
+            str(result[4]), '2021-06-30 23:39:30 239 -> 286 2021-07-01 00:05:04, 3608 m, 1529 sec')
         self.assertEqual(
-            str(result[5]), '089 Tilkanvierto -> 711 Kirjurinkuja, 5660 m, 1583 sec')
+            str(result[5]), '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec')
         self.assertEqual(
-            str(result[6]), '113 Pasilan asema -> 078 Messeniuksenkatu, 1602 m, 553 sec')
+            str(result[6]), '2021-07-31 23:59:59 113 -> 078 2021-08-01 00:09:15, 1602 m, 553 sec')
         self.assertEqual(
-            str(result[7]), '325 Mellunmäki (M) -> 283 Alakiventie, 3389 m, 900 sec')
+            str(result[7]), '2021-07-31 23:51:08 325 -> 283 2021-08-01 00:06:13, 3389 m, 900 sec')
 
     def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
         result = self.service.parse_csv(
             './src/tests/data/invalid_journeys_test.csv')
+        #TODO: Test with non-existing station
 
         self.assertEqual(len(result), 3)
         self.assertEqual(
-            str(result[0]), '045 Brahen kenttä -> 004 Viiskulma, 4149 m, 1118 sec')
+            str(result[0]), '2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec')
         self.assertEqual(
-            str(result[1]), '089 Tilkanvierto -> 711 Kirjurinkuja, 5660 m, 1583 sec')
+            str(result[1]), '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec')
         self.assertEqual(
-            str(result[2]), '030 Itämerentori -> 010 Kasarmitori, 2983 m, 1493 sec')
+            str(result[2]), '2021-07-10 23:04:17 030 -> 010 2021-07-10 23:29:15, 2983 m, 1493 sec')

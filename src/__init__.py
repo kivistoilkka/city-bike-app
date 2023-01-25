@@ -1,11 +1,46 @@
 from os import getenv
 from flask import Flask, redirect, jsonify
+from sqlalchemy import inspect
 
 from src.repositories.database import db
 
 from src.models.station import Station
 from src.models.journey import Journey
 
+from src.services.station_service import StationService
+from src.services.journey_service import JourneyService
+
+def build_database(stations_created, station_service, journeys_created, journey_service):
+    db.create_all()
+    if not stations_created:
+        print('**************')
+        print('Adding stations to database')
+        print('**************')
+        stations = station_service.parse_csv(
+            './data/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
+            )
+        for station in stations:
+            print(station)
+            db.session.add(station)
+        db.session.commit()
+        print()
+    if not journeys_created:
+        print('**************')
+        print('Adding journeys to database')
+        print('**************')
+
+        print('Reading journeys from first file')
+        journeys1 = journey_service.parse_csv(
+            './data/2021-05.csv',
+            #'./src/tests/data/invalid_journeys_test.csv',
+            logs=True
+            )
+        print('Adding journeys from the first file to the database')
+        for journey in journeys1:
+            db.session.add(journey)
+            print(journey)
+        db.session.commit()
+        print('')
 
 def create_app():
     app = Flask(__name__)
@@ -14,8 +49,21 @@ def create_app():
         "DATABASE_URL")  # .replace("://", "ql://", 1)
     db.init_app(app)
 
+    station_service = StationService(db)
+    journey_service = JourneyService(station_service)
+
     with app.app_context():
-        db.create_all()
+        #db.drop_all() ######################################
+        inspector = inspect(db.engine)
+        stations_created = inspector.has_table('station')
+        journeys_created = inspector.has_table('journey')
+        if not stations_created or not journeys_created:
+            build_database(
+                stations_created,
+                station_service,
+                journeys_created,
+                journey_service
+            )
 
     @app.route('/')
     def index():

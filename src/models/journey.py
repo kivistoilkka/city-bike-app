@@ -16,8 +16,8 @@ class Journey(db.Model):
     def __init__(self,
                  dep_time: datetime,
                  ret_time: datetime,
-                 dep_station: Station,
-                 ret_station: Station,
+                 dep_station: int,
+                 ret_station: int,
                  distance: int,
                  duration: int
                  ) -> None:
@@ -29,7 +29,6 @@ class Journey(db.Model):
         self.duration = duration
 
     def __str__(self) -> str:
-        return f'{str(self.departure_station.id).zfill(3)} \
-{self.departure_station.name_fi} -> \
-{str(self.return_station.id).zfill(3)} {self.return_station.name_fi}, \
+        return f'{self.departure_time} {str(self.departure_station).zfill(3)} -> \
+{str(self.return_station).zfill(3)} {self.return_time}, \
 {self.distance} m, {self.duration} sec'
