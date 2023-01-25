@@ -36,7 +36,8 @@ def create_app():
 
     @app.route('/add_station')
     def add_station():
-        sql = 'INSERT INTO station (id,name_fi,address_fi,x_coord,y_coord) VALUES (:id,:name_fi,:address_fi,:x_coord,:y_coord)'
+        sql = 'INSERT INTO station (id,name_fi,address_fi,x_coord,y_coord) \
+            VALUES (:id,:name_fi,:address_fi,:x_coord,:y_coord)'
         db.session.execute(sql, {'id': 1, 'name_fi': "Kaivopuisto", 'address_fi': "Meritori 1",
                            'x_coord': 24.9502114714031, 'y_coord': 60.155369615074})
         db.session.commit()
@@ -50,5 +51,5 @@ def create_app():
 
 
 if __name__ == '__main__':
-    app = create_app()
-    app.run()
+    application = create_app()
+    application.run()
