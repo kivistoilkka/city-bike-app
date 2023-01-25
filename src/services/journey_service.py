@@ -1,6 +1,6 @@
 import csv
 from datetime import datetime, timedelta
-from src.entities.journey import Journey
+from src.models.journey import Journey
 
 
 class JourneyService:

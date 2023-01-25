@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 from src.services.journey_service import JourneyService
-from src.entities.station import Station
+from src.models.station import Station
 
 
 class MockStationService:
@@ -53,9 +53,9 @@ class TestJourneyService(unittest.TestCase):
                          datetime.fromisoformat('2021-05-01T00:00:11'))
         self.assertEqual(result.return_time,
                          datetime.fromisoformat('2021-05-01T00:04:34'))
-        self.assertEqual(result.departure_station.station_id, 138)
+        self.assertEqual(result.departure_station.id, 138)
         self.assertEqual(result.departure_station.name_fi, 'Arabiankatu')
-        self.assertEqual(result.return_station.station_id, 138)
+        self.assertEqual(result.return_station.id, 138)
         self.assertEqual(result.return_station.name_fi, 'Arabiankatu')
         self.assertEqual(result.distance, 1057)
         self.assertEqual(result.duration, 259)
@@ -73,10 +73,10 @@ class TestJourneyService(unittest.TestCase):
                          datetime.fromisoformat('2021-05-31T21:48:34'))
         self.assertEqual(result.return_time,
                          datetime.fromisoformat('2021-05-31T21:52:05'))
-        self.assertEqual(result.departure_station.station_id, 541)
+        self.assertEqual(result.departure_station.id, 541)
         self.assertEqual(result.departure_station.name_fi,
                          'Aalto-yliopisto (M), Korkea')
-        self.assertEqual(result.return_station.station_id, 547)
+        self.assertEqual(result.return_station.id, 547)
         self.assertEqual(result.return_station.name_fi, 'Jämeräntaival')
         self.assertEqual(result.distance, 702)
         self.assertEqual(result.duration, 210)

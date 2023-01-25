@@ -17,5 +17,5 @@ class Station(db.Model):
         self.y_coord = y_coord
 
     def __str__(self) -> str:
-        return f'{str(self.station_id).zfill(3)} {self.name_fi}: {self.address_fi}, \
+        return f'{str(self.id).zfill(3)} {self.name_fi}: {self.address_fi}, \
 x={self.x_coord}, y={self.y_coord}'

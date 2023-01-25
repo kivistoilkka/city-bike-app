@@ -15,16 +15,9 @@ class TestStationService(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(result.station_id, '501')
+        self.assertEqual(result.id, 501)
         self.assertEqual(result.name_fi, 'Hanasaari')
-        # self.assertEqual(result.name_sv, 'Hanaholmen')
-        # self.assertEqual(result.name_en, 'Hanasaari')
         self.assertEqual(result.address_fi, 'Hanasaarenranta 1')
-        # self.assertEqual(result.address_sv, 'Hanaholmsstranden 1')
-        # self.assertEqual(result.city_fi, 'Espoo')
-        # self.assertEqual(result.city_sv, 'Esbo')
-        # self.assertEqual(result.operator, 'CityBike Finland')
-        # self.assertEqual(result.capacity, 10)
         self.assertEqual(result.x_coord, 24.840319)
         self.assertEqual(result.y_coord, 60.16582)
 
@@ -36,16 +29,9 @@ class TestStationService(unittest.TestCase):
                 'Esbo', 'CityBike Finland', '20', '24.820099', '60.184987'
             ]
         )
-        self.assertEqual(result.station_id, '539')
+        self.assertEqual(result.id, 539)
         self.assertEqual(result.name_fi, 'Aalto-yliopisto (M), Tietot')
-        # self.assertEqual(result.name_sv, 'Aalto-universitetet (M),')
-        # self.assertEqual(result.name_en, 'Aalto University (M), Tietotie')
         self.assertEqual(result.address_fi, 'Tietotie 4')
-        # self.assertEqual(result.address_sv, 'Datavägen 4')
-        # self.assertEqual(result.city_fi, 'Espoo')
-        # self.assertEqual(result.city_sv, 'Esbo')
-        # self.assertEqual(result.operator, 'CityBike Finland')
-        # self.assertEqual(result.capacity, 20)
         self.assertEqual(result.x_coord, 24.820099)
         self.assertEqual(result.y_coord, 60.184987)
 
@@ -57,16 +43,9 @@ class TestStationService(unittest.TestCase):
             ]
         )
 
-        self.assertEqual(result.station_id, '001')
+        self.assertEqual(result.id, 1)
         self.assertEqual(result.name_fi, 'Kaivopuisto')
-        # self.assertEqual(result.name_sv, 'Brunnsparken')
-        # self.assertEqual(result.name_en, 'Kaivopuisto')
         self.assertEqual(result.address_fi, 'Meritori 1')
-        # self.assertEqual(result.address_sv, 'Havstorget 1')
-        # self.assertEqual(result.city_fi, 'Helsinki')
-        # self.assertEqual(result.city_sv, 'Helsingfors')
-        # self.assertEqual(result.operator, '')
-        # self.assertEqual(result.capacity, 30)
         self.assertEqual(result.x_coord, 24.9502114714031)
         self.assertEqual(result.y_coord, 60.155369615074)
 
