@@ -1,6 +1,7 @@
 import sqlalchemy as sa
 from src.repositories.database import db
 
+
 class Station(db.Model):
     id = sa.Column(sa.Integer, primary_key=True)
     name_fi = sa.Column(sa.String)

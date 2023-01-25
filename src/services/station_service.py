@@ -1,5 +1,5 @@
 import csv
-from entities.station import Station
+from src.entities.station import Station
 
 
 class StationService:

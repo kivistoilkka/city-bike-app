@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
-from services.journey_service import JourneyService
-from entities.station import Station
+from src.services.journey_service import JourneyService
+from src.entities.station import Station
 
 
 class MockStationService:

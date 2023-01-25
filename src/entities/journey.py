@@ -1,5 +1,5 @@
 from datetime import datetime
-from entities.station import Station
+from src.entities.station import Station
 
 
 class Journey:
