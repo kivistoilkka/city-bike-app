@@ -10,50 +10,72 @@ from src.models.journey import Journey
 from src.services.station_service import StationService
 from src.services.journey_service import JourneyService
 
-def build_database(stations_created, station_service, journeys_created, journey_service):
+def read_stations_and_add_to_database(station_service:StationService, file):
+    stations = station_service.parse_csv(file)
+    for station in stations:
+        print(station)
+        db.session.add(station)
+    db.session.commit()
+
+def read_journeys_and_add_to_database(journey_service:JourneyService, file):
+    print(f'Reading joyrneys from file {file}')
+    journeys = journey_service.parse_csv(file,logs=True)
+    print(f'Adding journeys from {file} to the database')
+    for journey in journeys:
+        db.session.add(journey)
+        print(journey)
+    db.session.commit()
+
+def build_database(
+    stations_created,
+    station_service,
+    journeys_created,
+    journey_service,
+    testing,
+):
     db.create_all()
     if not stations_created:
         print('**************')
         print('Adding stations to database')
         print('**************')
-        stations = station_service.parse_csv(
-            './data/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
+        if testing:
+            read_stations_and_add_to_database(
+                station_service,
+                './src/tests/data/station_test_large.csv'
             )
-        for station in stations:
-            print(station)
-            db.session.add(station)
-        db.session.commit()
+        else:
+            read_stations_and_add_to_database(
+                station_service,
+                './data/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv'
+            )
         print()
     if not journeys_created:
         print('**************')
         print('Adding journeys to database')
         print('**************')
-
-        print('Reading journeys from first file')
-        journeys1 = journey_service.parse_csv(
-            './data/2021-05.csv',
-            #'./src/tests/data/invalid_journeys_test.csv',
-            logs=True
+        if testing:
+            read_journeys_and_add_to_database(
+                journey_service,
+                './src/tests/data/journey_test_large.csv'
             )
-        print('Adding journeys from the first file to the database')
-        for journey in journeys1:
-            db.session.add(journey)
-            print(journey)
-        db.session.commit()
+        else:
+            read_journeys_and_add_to_database(journey_service, './data/2021-05.csv')
         print('')
 
-def create_app():
+def create_app(testing=False) -> Flask:
+    from src.repositories.database import db
     app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["SQLALCHEMY_DATABASE_URI"] = getenv(
-        "DATABASE_URL")  # .replace("://", "ql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")  # .replace("://", "ql://", 1)
+    if testing:
+        app.config["SQLALCHEMY_DATABASE_URI"] = getenv("TEST_DATABASE_URL")  # .replace("://", "ql://", 1)
     db.init_app(app)
 
     station_service = StationService(db)
     journey_service = JourneyService(station_service)
 
     with app.app_context():
-        #db.drop_all() ######################################
+        # db.drop_all() ######################################
         inspector = inspect(db.engine)
         stations_created = inspector.has_table('station')
         journeys_created = inspector.has_table('journey')
@@ -62,7 +84,8 @@ def create_app():
                 stations_created,
                 station_service,
                 journeys_created,
-                journey_service
+                journey_service,
+                testing
             )
 
     @app.route('/')

@@ -1,0 +1,73 @@
+FID,ID,Nimi,Namn,Name,Osoite,Adress,Kaupunki,Stad,Operaattor,Kapasiteet,x,y
+6,511,Sateentie,Regnvägen,Sateentie,Sateentie 2,Regnvägen 2,Espoo,Esbo,CityBike Finland,18,24.810688,60.173424
+26,547,Jämeräntaival,Bistervägen,Jämeräntaival,Otakaari 18,Otsvängen 18,Espoo,Esbo,CityBike Finland,30,24.835033,60.188118
+30,555,Kalevalantie,Kalevalavägen,Kalevalantie,Kalevalantie 7,Kalevalavägen 7,Espoo,Esbo,CityBike Finland,21,24.804022,60.184765
+31,557,Louhentori,Louhitorget,Louhentori,Louhentie 16,Louhivägen 16,Espoo,Esbo,CityBike Finland,16,24.796959,60.18715
+37,573,Urheilupuisto (M),Idrottsparken (M),Sports Park (M),Jousenpuistonkatu 4,Bågparksgatan 4,Espoo,Esbo,CityBike Finland,28,24.779428,60.17465
+55,611,Matinkartanontie,Mattgårdvägen,Matinkartanontie,Matinkartanontie 2,Mattsgårdsvägen 2,Espoo,Esbo,CityBike Finland,21,24.752489,60.156258
+62,625,Suomenlahdentie,Finnviksvägen,Suomenlahdentie,Suomenlahdentie 2,Finnviksvägen 2,Espoo,Esbo,CityBike Finland,32,24.741294,60.160015
+78,703,Elfvik,Elfvik,Elfvik,Elfvikintie 4,Elfviksvägen 4,Espoo,Esbo,CityBike Finland,10,24.8231,60.203852
+82,711,Kirjurinkuja,Skrivargränden,Kirjurinkuja,Kirjurinkuja 1,Skrivargränden 1,Espoo,Esbo,CityBike Finland,26,24.826368,60.215751
+83,713,Upseerinkatu,Officersgatan,Upseerinkatu,Upseerinkatu 3,Officersgatan 3,Espoo,Esbo,CityBike Finland,30,24.819396,60.216067
+88,725,Rummunlyöjänkatu,Trumslagargatan,Rummunlyöjänkatu,Leppävaarankatu 13,Albergagatan 13,Espoo,Esbo,CityBike Finland,20,24.806279,60.217261
+89,727,Ratsutori,Ryttartorget,Ratsutori,Leppävaarankatu 1,Albergagatan 1,Espoo,Esbo,CityBike Finland,33,24.812419,60.217311
+111,001,Kaivopuisto,Brunnsparken,Kaivopuisto,Meritori 1,Havstorget 1, , , ,30,24.9502114714031,60.155369615074
+113,003,Kapteeninpuistikko,Kaptensskvären,Kapteeninpuistikko,Tehtaankatu 13,Fabriksgatan 13, , , ,16,24.9450181631667,60.1581769029949
+114,004,Viiskulma,Femkanten,Viiskulma,Fredrikinkatu 19,Fredriksgatan  19, , , ,14,24.9417758006418,60.1609858921764
+119,009,Erottajan aukio,Skillnadsplatsen,Erottajan aukio,Eteläesplanadi 22,Södra esplanaden 22, , , ,44,24.9441887601673,60.1668948711694
+126,016,Liisanpuistikko,Elisabetsskvären,Liisanpuistikko,Liisankatu 1,Elisabetsgatan 1, , , ,16,24.9613746997628,60.1741821916183
+129,019,Rautatientori / itä,Järnvägstorget/öst,Central Railway Station/East,Rautatientori 1,Järnvägstorget 1, , , ,20,24.9425267992462,60.1708235917114
+131,021,Töölönlahdenkatu,Tölöviksgatan,Töölönlahdenkatu,Elielinaukio 5,Elielplatsen 5, , , ,44,24.9393079129956,60.1721906837527
+132,022,Rautatientori / länsi,Järnvägstorget/väst,Central Railway Station/West,Kaivokatu 1,Brunnsgatan 1, , , ,16,24.9397601000633,60.1706060919732
+138,028,Lastenlehto,Barnlunden,Lastenlehto,Lapinrinne,Lappbrinken, , , ,16,24.9270362659605,60.1657993006509
+140,030,Itämerentori,Östersjötorget,Itämerentori,Itämerentori 1,Östersjötorget 1, , , ,40,24.9145164996449,60.1635308918594
+141,031,Marian sairaala,Maria sjukhus,Maria Hospital,Pohjoinen Rautatiekatu 33,Norra Järnvägsgatan 33, , , ,16,24.9227415692015,60.1683228179992
+144,034,Kansallismuseo,Nationalmuseum,National Museum,Mannerheimintie 30,Mannerheimvägen 30, , , ,16,24.9328983153441,60.173956898526
+151,041,Ympyrätalo,Runda huset,Ympyrätalo,Porthaninrinne 1,Porthansbrinken 1, , , ,36,24.949399999845,60.1808629918822
+153,043,Karhupuisto,Björnparken,Karhupuisto,Agricolankatu 11,Agricolagatan 11, , , ,24,24.9526762998375,60.18428329212
+154,044,Sörnäinen (M),Sörnäs (M),Sörnäinen (M),Vaasanpuistikko 1a,Vaasanpuistikko 1a, , , ,22,24.960554135,60.187712639
+159,049,Annankatu,Annankatu,Annankatu,Annankatu 5,Annegatan 5, , , ,16,24.9417379007102,60.1634749245163
+160,050,Melkonkuja,Melkögränd,Melkonkuja,Melkonkuja 1,Melkögränd 1, , , ,12,24.8861093999757,60.1498126916296
+167,057,Lauttasaaren ostoskeskus,Drumsö köpcentrum,Lauttasaari Shopping Center,Lauttasaarentie 26,Drumsövägen 26, , , ,26,24.8828103623042,60.1604153459526
+169,059,Salmisaarenranta,Sundholmsstranden,Salmisaarenranta,Salmisaarenranta 9,Sundholmstranden 9, , , ,28,24.9009334858186,60.164784170294
+170,060,Kaapelitehdas,Kabelfabriken,Cable Factory,Tammasaarenlaituri 7,Märaholmskajen 7, , , ,26,24.90279681,60.161252848
+171,061,Länsisatamankatu,Västrahamnsgatan,Länsisatamankatu,Länsisatamankatu 19,Västrahamnsgatan 19, , , ,16,24.9096920006591,60.158927591706
+172,062,Välimerenkatu,Medelhavsgatan,Välimerenkatu,Välimerenkatu 9,Medelhavsgatan 9, , , ,16,24.9162412896547,60.1592963414953
+173,063,Jätkäsaarenlaituri,Busholmskajen,Jätkäsaarenlaituri,Jätkäsaarenlaituri 1,Busholmskajen 1, , , ,24,24.9214896008223,60.1619310923994
+175,065,Hernesaarenranta,Ärtholmsstranden,Hernesaarenranta,Hylkeenpyytäjänkatu 1a,Säljägargatan 1a, , , ,40,24.9311978237832,60.1535144787873
+178,068,Albertinkatu,Albertsgatan,Albertinkatu,Albertinkatu 17,Albertsgatan 17, , , ,20,24.9368050446952,60.1618574790512
+179,069,Kalevankatu,Kalevagatan,Kalevankatu,Lapinlahdenkatu 1,Lappviksgatan 1, , , ,16,24.9314215703651,60.1656801793916
+182,072,Eteläinen Hesperiankatu,Södra Hesperiagatan,Eteläinen Hesperiankatu,Eteläinen Hesperiankatu 38,Södrä Hesperiagatan 38, , , ,18,24.9155261617436,60.1755926611589
+188,078,Messeniuksenkatu,Messeniusgatan,Messeniuksenkatu,Messeniuksenkatu 1a,Messeniusgatan 1a, , , ,20,24.9180102002596,60.1878351921237
+191,081,Stenbäckinkatu,Stenbäcksgatan,Stenbäckinkatu,Stenbäckinkatu 9,Stenbäcksgatan 9, , , ,18,24.9123717007068,60.1883090916703
+192,082,Töölöntulli,Tölötull,Töölöntulli,Mannerheimintie 112,Mannerheimvägen 112, , , ,16,24.912893019047,60.1909233737999
+194,084,Paciuksenkatu,Paciusgatan,Paciuksenkatu,Mäntytie 2,Tallvägen 2, , , ,14,24.8999261202594,60.1912061418589
+200,090,Paciuksenkaari,Paciussvängen,Paciuksenkaari,Johannesbergintie 6,Johannesbergsvägen 6, , , ,20,24.8911179001253,60.1944474917836
+204,094,Laajalahden aukio,Bredviksplatsen,Laajalahden aukio,Munkkiniemen puistotie 21,Munksnäs allén 21, , , ,20,24.8763012644261,60.1978706012264
+206,096,Huopalahdentie,Hoplaksvägen,Huopalahdentie,Huopalahdentie 13,Hoplaksvägen 13, , , ,20,24.8835764865762,60.199732919393
+208,099,Muusantori,Musans torg,Muusantori,Muusantori 5,Musanstorg 5, , , ,12,24.8559544008311,60.207119292
+209,100,Teljäntie,Täljevägen,Teljäntie,Ulvilantie 21,Ulfsbyvägen 21, , , ,12,24.8686567195812,60.209690428765
+221,113,Pasilan asema,Böle station,Pasila railway station,Pasilan asema-aukio,Böle station, , , ,40,24.932799079033,60.1982108580315
+223,115,Venttiilikuja,Ventilgränden,Venttiilikuja,Venttiilikuja  1 & 2,Ventilgränden 1 & 2, , , ,16,24.9415225602343,60.1941915204257
+224,116,Linnanmäki,Borgbacken,Linnanmäki Amusement Park,Viipurinkatu 20,Viborgsgatan 20, , , ,32,24.9401592995968,60.1911410923558
+225,117,Brahen puistikko,Braheskvären,Brahen puistikko,Sturenkatu 12,Sturegatan 12, , , ,12,24.9481257001872,60.1896657985504
+226,118,Fleminginkatu,Flemingsgatan,Fleminginkatu,Aleksis Kiven katu 30,Aleksis Kivis gata 30, , , ,22,24.952206700403,60.1895253157117
+229,121,Vilhonvuorenkatu,Vilhelmsbergsgatan,Vilhonvuorenkatu,Vilhonvuorenkatu 12,Vilhelmsbergsgatan 12, , , ,16,24.967854123638,60.1864553029206
+231,123,Näkinsilta,Näckens bro,Näkinsilta,Sörnäisten rantatie 9,Sörnas strandväg 9, , , ,24,24.9554449266327,60.179750209022
+241,133,Paavalinpuisto,Paulusparken,Paavalinpuisto,Hämeentie 96,Tavastvägen 96, , , ,22,24.9614401060515,60.1974798068335
+245,137,Arabian kauppakeskus,Arabia köpcentrum,Arabia Shopping Center,Hämeentie 111,Tavastvägen 111, , , ,30,24.9665718240118,60.2027696318957
+253,145,Pohjolankatu,Pohjolagatan,Pohjolankatu,Pohjolankatu 1,Pohjolagatan 1, , , ,12,24.9437964005667,60.2134209918355
+255,147,Käpylän asema,Kottby station,Käpylä station,Panuntie 4,Panuvägen 4, , , ,14,24.9479499152249,60.2208033078251
+260,162,Leppäsuonaukio,Alkärrsplatsen,Leppäsuonaukio,Leppäsuonaukio 1,Alkärrsplatsen 1, , , ,28,24.9265784464228,60.1695846151592
+263,201,Länsisatamankuja,Västrahamnsgränden,Länsisatamankuja,Länsisatamankatu 26,Västrahamnsgatan 26, , , ,14,24.9120898275496,60.1569514968019
+294,232,Oulunkylän asema,Åggelby station,Oulunkylä Station,Oulunkyläntori 2,Åggelbytorget 2, , , ,14,24.9667185624345,60.2291001546027
+297,235,Katariina Saksilaisen katu,Katarina av Sachsens gata,Katariina Saksilaisen katu,Katariina Saksilaisen katu 6,Katarina av Sachsens gata 6, , , ,16,24.9844208812225,60.2172068185826
+301,239,Viikin tiedepuisto,Viks forskarpark,Viikki Science Park,Viikintori,Vikstorget, , , ,28,25.0100484016428,60.2275394155784
+302,240,Viikin normaalikoulu,Normalskolan i Vik,Viikki Teacher Training School,Kevättori,Vårtorget, , , ,20,25.0275940265593,60.2274649666156
+319,257,Margareetankuja,Margaretagränden,Margareetankuja,Margareetankuja 4,Margaretagränden 4, , , ,14,25.0372267110383,60.1910267485051
+326,264,Eränkävijäntori,Jägartorget,Eränkävijäntori,Hiihtomäentie 39,Skidbacksvägen 39, , , ,16,25.0336255327162,60.2045796219055
+334,272,Marjaniementie,Maruddsvägen,Marjaniementie,Rakettipolku 5,Raketstigen 5, , , ,16,25.076069360708,60.2043248841061
+342,281,Puotila (M),Botby gård (M),Puotila (M),Vanhanlinnantori,Vanhalinnatorget, , , ,20,25.0910915854205,60.2148242972699
+350,292,Koskelan varikko,Forsby depå,Koskelan varikko,Valtimontie 10,Valtimovägen 10, , , ,16,24.9698571193553,60.2125872907979
+359,315,Vuosaaren liikuntapuisto,Nordsjö idrottspark,Vuosaaren liikuntapuisto,Pallokuja 4,Bollgränden 4, , , ,18,25.1534645734222,60.2122976062757
+454,402,Bermudankuja,Bermudagränden,Välimerenkatu,Atlantinkatu 10,Atlantgatan 10, , , ,16,24.9101421129463,60.1549042600429

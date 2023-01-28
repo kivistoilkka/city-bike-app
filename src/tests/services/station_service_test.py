@@ -2,7 +2,6 @@ import unittest
 from src.services.station_service import StationService
 from src.repositories.database import db
 
-
 class TestStationService(unittest.TestCase):
     def setUp(self):
         self.service = StationService(db)

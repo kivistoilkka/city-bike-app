@@ -6,8 +6,8 @@ class Station(db.Model):
     id = sa.Column(sa.Integer, primary_key=True)
     name_fi = sa.Column(sa.String)
     address_fi = sa.Column(sa.String)
-    x_coord = sa.Column(sa.Numeric)
-    y_coord = sa.Column(sa.Numeric)
+    x_coord = sa.Column(sa.Numeric(asdecimal=False))
+    y_coord = sa.Column(sa.Numeric(asdecimal=False))
 
     def __init__(self, id, name_fi, address_fi, x_coord, y_coord):
         self.id = id

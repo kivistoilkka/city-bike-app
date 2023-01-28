@@ -323,6 +323,29 @@ tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
+name = "pytest-dotenv"
+version = "0.5.2"
+description = "A py.test plugin that parses environment files before running tests"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pytest = ">=5.0.0"
+python-dotenv = ">=0.9.1"
+
+[[package]]
+name = "python-dotenv"
+version = "0.21.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "robotframework"
 version = "6.0.2"
 description = "Generic automation framework for acceptance testing and robotic process automation (RPA)"
@@ -423,7 +446,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "41db0086cdee5b1e14e0e0304a1f51af22b50edf1281373c98dd711c9160a038"
+content-hash = "4110514d08b079bcfd4b8c46d1a88d6aaba912f4f7e9712438272f5de7bc230b"
 
 [metadata.files]
 astroid = [
@@ -733,6 +756,14 @@ pylint = [
 pytest = [
     {file = "pytest-7.2.1-py3-none-any.whl", hash = "sha256:c7c6ca206e93355074ae32f7403e8ea12163b1163c976fee7d4d84027c162be5"},
     {file = "pytest-7.2.1.tar.gz", hash = "sha256:d45e0952f3727241918b8fd0f376f5ff6b301cc0777c6f9a556935c92d8a7d42"},
+]
+pytest-dotenv = [
+    {file = "pytest-dotenv-0.5.2.tar.gz", hash = "sha256:2dc6c3ac6d8764c71c6d2804e902d0ff810fa19692e95fe138aefc9b1aa73732"},
+    {file = "pytest_dotenv-0.5.2-py3-none-any.whl", hash = "sha256:40a2cece120a213898afaa5407673f6bd924b1fa7eafce6bda0e8abffe2f710f"},
+]
+python-dotenv = [
+    {file = "python-dotenv-0.21.1.tar.gz", hash = "sha256:1c93de8f636cde3ce377292818d0e440b6e45a82f215c3744979151fa8151c49"},
+    {file = "python_dotenv-0.21.1-py3-none-any.whl", hash = "sha256:41e12e0318bebc859fcc4d97d4db8d20ad21721a6aa5047dd59f090391cb549a"},
 ]
 robotframework = [
     {file = "robotframework-6.0.2-py3-none-any.whl", hash = "sha256:634cd6f9fdc21142eadd9aacdddbfe7d3e2a757532b71d866dbb404cd0e66dac"},
