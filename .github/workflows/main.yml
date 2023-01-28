@@ -40,6 +40,8 @@ jobs:
       #     POSTGRES_PORT: 5432
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
+        env:
+          TEST_DATABASE_URL: postgres
       - name: Coverage report
         run: poetry run coverage xml
       - name: Coverage report to Codecov
