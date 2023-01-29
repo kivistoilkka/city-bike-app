@@ -15,10 +15,9 @@ jobs:
         image: postgres
         env:
           POSTGRES_DB: city_bike_app_testing
-          POSTGRES_PASSWORD: postgres_password
+          POSTGRES_PASSWORD: password
           POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres_user
-          TEST_DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/city_bike_app_testing
+          POSTGRES_USER: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -40,8 +39,8 @@ jobs:
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
         env:
-          DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/city_bike_app
-          TEST_DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/city_bike_app_testing
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/city_bike_app_testing
+          TEST_DATABASE_URL: TEST_DATABASE_URL: postgresql://postgres:password@localhost:5432/city_bike_app_testing
       - name: Coverage report
         run: poetry run coverage xml
       - name: Coverage report to Codecov
