@@ -24,7 +24,7 @@ class AppFactory:
         if testing or getenv('RUNNING_DEV'):
             uri = TestConfig().database_uri
         if uri.startswith("postgres://"):
-            uri = uri.replace("postgres://", "postgresql://", 1)
+            uri = uri.replace("postgres://", "postgresql+psycopg2://", 1)
         app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
         db.init_app(app)

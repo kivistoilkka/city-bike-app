@@ -14,6 +14,6 @@ class ProductionConfig:
 
 class TestConfig:
     def __init__(self) -> None:
-        self.database_uri = getenv("TEST_DATABASE_URL")
+        self.database_uri = getenv('TEST_DATABASE_URL')
         self.station_file = './src/tests/data/station_test_large.csv'
         self.journey_files = ['./src/tests/data/journey_test_large.csv']

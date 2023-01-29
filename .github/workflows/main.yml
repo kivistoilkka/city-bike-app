@@ -14,7 +14,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: postgres_db
+          POSTGRES_DB: city-bike-app
           POSTGRES_PASSWORD: postgres_password
           POSTGRES_PORT: 5432
           POSTGRES_USER: postgres_user
@@ -36,17 +36,10 @@ jobs:
         run: poetry install
       - name: Lint
         run: poetry run invoke lint
-      # - name: Connect to PostgreSQL
-      #   run: python3 builder.py
-      #   env:
-      #     POSTGRES_HOST: postgres
-      #     POSTGRES_PORT: 5432
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
         env:
-          TEST_DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/postgres_db
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
+          TEST_DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/city-bike-app
       - name: Coverage report
         run: poetry run coverage xml
       - name: Coverage report to Codecov
