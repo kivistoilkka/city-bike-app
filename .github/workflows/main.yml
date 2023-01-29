@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      localhost:
+      postgres:
         image: postgres
         env:
           POSTGRES_DB: postgres_db
@@ -44,7 +44,9 @@ jobs:
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
         env:
-          TEST_DATABASE_URL: postgres://postgres_user:postgres_password@localhost:5432/postgres_db
+          TEST_DATABASE_URL: postgres://postgres_user:postgres_password@postgres:5432/postgres_db
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
       - name: Coverage report
         run: poetry run coverage xml
       - name: Coverage report to Codecov
