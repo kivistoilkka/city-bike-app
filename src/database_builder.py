@@ -11,16 +11,16 @@ class DatabaseBuilder:
     def __init__(self) -> None:
         pass
 
-    def _read_stations_and_add_to_database(self, station_service:StationService, file):
+    def _read_stations_and_add_to_database(self, station_service: StationService, file):
         stations = station_service.parse_csv(file)
         for station in stations:
             print(station)
             db.session.add(station)
         db.session.commit()
 
-    def _read_journeys_and_add_to_database(self, journey_service:JourneyService, file):
+    def _read_journeys_and_add_to_database(self, journey_service: JourneyService, file):
         print(f'Reading joyrneys from file {file}')
-        journeys = journey_service.parse_csv(file,logs=True)
+        journeys = journey_service.parse_csv(file, logs=True)
         print()
         print(f'Adding journeys from {file} to the database')
         for journey in journeys:
@@ -30,11 +30,11 @@ class DatabaseBuilder:
 
     def build_database(
         self,
-        stations_created:bool,
+        stations_created: bool,
         station_service,
-        journeys_created:bool,
+        journeys_created: bool,
         journey_service,
-        testing:bool,
+        testing: bool,
     ):
         db.create_all()
         if not stations_created:
@@ -64,5 +64,6 @@ class DatabaseBuilder:
                     )
             else:
                 for file in ProductionConfig().journey_files:
-                    self._read_journeys_and_add_to_database(journey_service, file)
+                    self._read_journeys_and_add_to_database(
+                        journey_service, file)
         print()

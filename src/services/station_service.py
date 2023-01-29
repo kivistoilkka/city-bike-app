@@ -44,5 +44,5 @@ class StationService:
             raise ValueError
         return station
 
-    def get_station(self, id:int) -> Station:
+    def get_station(self, id: int) -> Station:
         return self.station_repository.get_station(id)

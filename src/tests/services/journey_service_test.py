@@ -102,7 +102,7 @@ class TestJourneyService(unittest.TestCase):
     def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
         result = self.service.parse_csv(
             './src/tests/data/invalid_journeys_test.csv')
-        #TODO: Test with non-existing station
+        # TODO: Test with non-existing station
 
         self.assertEqual(len(result), 3)
         self.assertEqual(

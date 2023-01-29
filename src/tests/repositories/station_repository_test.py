@@ -3,6 +3,7 @@ import pytest
 from src.repositories.station_repository import StationRepository
 from src.repositories.database import db
 
+
 class TestStationRepository(unittest.TestCase):
     @pytest.fixture(autouse=True)
     def prepare_fixture(self, app):

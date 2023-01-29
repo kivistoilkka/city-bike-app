@@ -1,5 +1,6 @@
 from os import getenv
 
+
 class ProductionConfig:
     def __init__(self) -> None:
         self.database_uri = getenv('DATABASE_URL')
@@ -9,6 +10,7 @@ class ProductionConfig:
             './data/2021-06.csv',
             './data/2021-07.csv'
         ]
+
 
 class TestConfig:
     def __init__(self) -> None:

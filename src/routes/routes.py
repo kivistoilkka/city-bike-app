@@ -2,6 +2,7 @@ from flask import redirect, jsonify
 from src.models.station import Station
 from src.models.journey import Journey
 
+
 class Routes:
     def __init__(self):
         pass
@@ -30,10 +31,10 @@ class Routes:
             sql = 'INSERT INTO station (id,name_fi,address_fi,x_coord,y_coord) \
                 VALUES (:id,:name_fi,:address_fi,:x_coord,:y_coord)'
             db.session.execute(sql, {'id': 1, 'name_fi': "Kaivopuisto", 'address_fi': "Meritori 1",
-                            'x_coord': 24.9502114714031, 'y_coord': 60.155369615074})
+                                     'x_coord': 24.9502114714031, 'y_coord': 60.155369615074})
             db.session.commit()
             new_station = Station(405, 'Jollas', 'Jollaksentie 33',
-                                25.0616678668253, 60.1644074899774)
+                                  25.0616678668253, 60.1644074899774)
             db.session.add(new_station)
             db.session.commit()
             return redirect('/')
@@ -46,17 +47,18 @@ class Routes:
             #     AND S.id=:id GROUP BY S.id'
             sql = 'SELECT S.id, S.name_fi, S.address_fi, S.x_coord, S.y_coord \
                 FROM station S WHERE S.id=:id'
-            #TODO: Get returns
-            #TODO: Use Model
+            # TODO: Get returns
+            # TODO: Use Model
             result = db.session.execute(sql, {'id': id})
             station_info = result.fetchone()
             if not station_info:
-                return jsonify({'Error': f'Station with id {id} not found'})  #TODO: HTTP status
+                # TODO: HTTP status
+                return jsonify({'Error': f'Station with id {id} not found'})
             return jsonify({
                 'id': station_info[0],
                 'name_fi': station_info[1],
                 'address_fi': station_info[2],
                 'x_coord': station_info[3],
                 'y_coord': station_info[4],
-                #'departures': station_info[5],
+                # 'departures': station_info[5],
             })
