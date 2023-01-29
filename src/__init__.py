@@ -63,12 +63,16 @@ def build_database(
         print('')
 
 def create_app(testing=False) -> Flask:
-    from src.repositories.database import db
     app = Flask(__name__)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")  # .replace("://", "ql://", 1)
+
+    uri = getenv("DATABASE_URL")
     if testing:
-        app.config["SQLALCHEMY_DATABASE_URI"] = getenv("TEST_DATABASE_URL")  # .replace("://", "ql://", 1)
+        uri = getenv("TEST_DATABASE_URL")
+    if uri.startswith("postgres://"):
+        uri = uri.replace("postgres://", "postgresql://", 1)
+    app.config["SQLALCHEMY_DATABASE_URI"] = uri
+
     db.init_app(app)
 
     station_service = StationService(db)
