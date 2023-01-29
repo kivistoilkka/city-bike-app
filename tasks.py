@@ -5,8 +5,15 @@ def start(ctx):
     ctx.run("export FLASK_APP=src && flask run", pty=True)
 
 @task
+def start_with_build(ctx):
+    ctx.run("export FLASK_APP=src && export BUILD_PROD_DB=True && flask run", pty=True)
+
+@task
 def dev(ctx):
-    ctx.run('export FLASK_APP=src && export FLASK_DEBUG=1 && flask run', pty=True)
+    ctx.run(
+        'export FLASK_APP=src && export FLASK_DEBUG=1 && export RUNNING_DEV=True && flask run',
+        pty=True
+    )
 
 @task
 def test(ctx):
