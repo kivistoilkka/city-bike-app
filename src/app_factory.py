@@ -2,7 +2,7 @@ from os import getenv
 from flask import Flask
 from sqlalchemy import inspect
 
-from src.config import ProductionConfig, TestConfig
+from src.config.config import ProductionConfig, TestConfig
 from src.repositories.database import db
 from src.database_builder import DatabaseBuilder
 

@@ -1,6 +1,6 @@
 from os import getenv
 
-from src.config import ProductionConfig, TestConfig
+from src.config.config import ProductionConfig, TestConfig
 from src.repositories.database import db
 
 from src.services.station_service import StationService
