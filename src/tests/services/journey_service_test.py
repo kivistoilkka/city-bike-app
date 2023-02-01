@@ -1,10 +1,13 @@
 import unittest
 from datetime import datetime
+
+from src.repositories.database import db
+from src.repositories.journey_repository import JourneyRepository
 from src.services.journey_service import JourneyService
 from src.models.station import Station
 
 
-class MockStationService:
+class MockStationRepository:
     def __init__(self) -> None:
         self.stations = {
             138: Station(138, 'Arabiankatu', 'Arabiankatu 7', 0, 0),
@@ -40,11 +43,14 @@ class MockStationService:
 
 class TestJourneyService(unittest.TestCase):
     def setUp(self):
-        mock_station_service = MockStationService()
-        self.service = JourneyService(mock_station_service)
+        journey_repository = JourneyRepository(db)
+        mock_station_repository = MockStationRepository()
+        self.service_with_mock_stations = JourneyService(
+            journey_repository, mock_station_repository
+        )
 
     def test_parses_valid_string(self):
-        result = self.service.parse_journey(
+        result = self.service_with_mock_stations.parse_journey(
             [
                 '2021-05-01T00:00:11', '2021-05-01T00:04:34', '138', 'Arabiankatu',
                 '138', 'Arabiankatu', '1057', '259'
@@ -61,7 +67,7 @@ class TestJourneyService(unittest.TestCase):
         self.assertEqual(result.duration, 259)
 
     def test_parses_valid_string_with_comma_as_part_of_the_name(self):
-        result = self.service.parse_journey(
+        result = self.service_with_mock_stations.parse_journey(
             [
                 '2021-05-31T21:48:34', '2021-05-31T21:52:05', '541',
                 'Aalto-yliopisto (M), Korkeakouluaukio', '547', 'Jämeräntaival',
@@ -79,7 +85,7 @@ class TestJourneyService(unittest.TestCase):
         self.assertEqual(result.duration, 210)
 
     def test_reads_and_parses_test_file_with_valid_journeys(self):
-        result = self.service.parse_csv('./src/tests/data/journey_test.csv')
+        result = self.service_with_mock_stations.parse_csv('./src/tests/data/journey_test.csv')
 
         self.assertEqual(len(result), 8)
         self.assertEqual(
@@ -100,7 +106,7 @@ class TestJourneyService(unittest.TestCase):
             str(result[7]), '2021-07-31 23:51:08 325 -> 283 2021-08-01 00:06:13, 3389 m, 900 sec')
 
     def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
-        result = self.service.parse_csv(
+        result = self.service_with_mock_stations.parse_csv(
             './src/tests/data/invalid_journeys_test.csv')
         # TODO: Test with non-existing station
 

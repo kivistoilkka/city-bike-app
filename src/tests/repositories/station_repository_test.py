@@ -36,7 +36,7 @@ class TestStationRepository(unittest.TestCase):
                 '727 Ratsutori: Leppävaarankatu 1, x=24.812419, y=60.217311'
             )
 
-    def test_gets_defined_range_subset_of_all_stations_as_Station_objects_in_number_order(self):
+    def test_gets_defined_range_list_of_all_stations_as_Station_objects_in_number_order(self):
         with self.app.app_context():
             result = self.repository.get_range_from_all_stations(3, 13)
         

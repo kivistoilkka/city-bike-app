@@ -1,11 +1,13 @@
 import unittest
+from src.repositories.station_repository import StationRepository
 from src.services.station_service import StationService
 from src.repositories.database import db
 
 
 class TestStationService(unittest.TestCase):
     def setUp(self):
-        self.service = StationService(db)
+        repository = StationRepository(db)
+        self.service = StationService(db, repository)
 
     def test_parses_valid_line(self):
         result = self.service.parse_station(

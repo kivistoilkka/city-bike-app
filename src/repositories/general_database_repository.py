@@ -1,5 +1,3 @@
-from sqlalchemy import func, select
-
 from src.models.station import Station
 from src.models.journey import Journey
 

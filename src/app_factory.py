@@ -6,6 +6,10 @@ from src.config.config import ProductionConfig, TestConfig
 from src.repositories.database import db
 from src.database_builder import DatabaseBuilder
 
+from src.repositories.general_database_repository import GeneralDatabaseRepository
+from src.repositories.station_repository import StationRepository
+from src.repositories.journey_repository import JourneyRepository
+
 from src.services.station_service import StationService
 from src.services.journey_service import JourneyService
 from src.routes.routes import Routes
@@ -29,10 +33,14 @@ class AppFactory:
 
         db.init_app(app)
 
-        station_service = StationService(db)
-        journey_service = JourneyService(station_service)
-        database_builder = DatabaseBuilder()
+        general_repository = GeneralDatabaseRepository()
+        station_repository = StationRepository(db)
+        journey_repository = JourneyRepository(db)
 
+        station_service = StationService(db, station_repository)
+        journey_service = JourneyService(journey_repository, station_repository)
+
+        database_builder = DatabaseBuilder()
         with app.app_context():
             if testing or getenv('RUNNING_DEV') or getenv('BUILD_PROD_DB'):
                 db.drop_all()
@@ -48,6 +56,11 @@ class AppFactory:
                     testing
                 )
 
-        Routes().add_routes(app, db)
+        Routes(
+            general_repository,
+            station_service,
+            journey_service,
+            db
+        ).add_routes(app)
 
         return app

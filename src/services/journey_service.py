@@ -4,8 +4,9 @@ from src.models.journey import Journey
 
 
 class JourneyService:
-    def __init__(self, station_service) -> None:
-        self.station_service = station_service
+    def __init__(self, journey_repository, station_repository):
+        self.journey_repository = journey_repository
+        self.station_repository = station_repository
 
     def parse_csv(self, file, logs=False) -> list:
         journeys = []
@@ -37,11 +38,11 @@ class JourneyService:
         dep_station_id = int(line[2])
         if dep_station_id < 0:
             raise ValueError
-        dep_station = self.station_service.get_station(dep_station_id)
+        dep_station = self.station_repository.get_station(dep_station_id)
         ret_station_id = int(line[4])
         if ret_station_id < 0:
             raise ValueError
-        ret_station = self.station_service.get_station(ret_station_id)
+        ret_station = self.station_repository.get_station(ret_station_id)
         distance = int(line[6])
         duration = int(line[7])
 
