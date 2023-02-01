@@ -47,10 +47,10 @@ class StationService:
         station = self.station_repository.get_station(id)
         if not station:
             return None
-        return {
-            'id': station.id,
-            'name_fi': station.name_fi,
-            'address_fi': station.address_fi,
-            'x_coord': station.x_coord,
-            'y_coord': station.y_coord,
-        }
+        return station.as_dict()
+
+    def get_stations_in_decreasing_id_order(self, lower:int, upper:int) -> list:
+        stations = self.station_repository.get_range_from_all_stations(
+            lower, upper
+        )
+        return list(map(lambda s: s.as_dict(), stations))

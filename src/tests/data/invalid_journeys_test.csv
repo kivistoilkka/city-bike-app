@@ -9,5 +9,6 @@ Departure,Return,Departure station id,Departure station name,Return station id,R
 2021-07-31T23:51:08,2021-08-01T00:06:13,three-two-five,Mellunmäki (M),283,Alakiventie,3389,900
 2021-05-31T16:05:25,2021-06-01T10:40:13,161,Eteläesplanadi,997,Workshop Helsinki,3988,66882
 2021-07-10T23:29:16,2021-07-10T23:29:36,011,Unioninkatu,011,Unioninkatu,9,20
+2021-05-31T23:28:16,2021-05-31T23:31:00,999,Töölöntulli,084,Paciuksenkatu,665,159
 2021-07-10T23:04:44,2021-07-10T23:11:28,016,Liisanpuistikko,012,Kanavaranta,706,9
 2021-07-10T23:04:17,2021-07-10T23:29:15,030,Itämerentori,010,Kasarmitori,2983,1493

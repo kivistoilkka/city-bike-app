@@ -19,3 +19,12 @@ class Station(db.Model):
     def __str__(self) -> str:
         return f'{str(self.id).zfill(3)} {self.name_fi}: {self.address_fi}, \
 x={self.x_coord}, y={self.y_coord}'
+
+    def as_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'name_fi': self.name_fi,
+            'address_fi': self.address_fi,
+            'x_coord': self.x_coord,
+            'y_coord': self.y_coord,
+        }

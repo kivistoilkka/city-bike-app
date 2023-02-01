@@ -59,3 +59,27 @@ class JourneyService:
         if not validation_result:
             raise ValueError
         return journey
+
+    def get_journeys_in_decreasing_time_order(self, lower:int, upper:int) -> list:
+        journeys = self.journey_repository.get_range_from_all_journeys_by_time(
+            lower, upper, True
+        )
+        return list(map(lambda j: j.as_dict(), journeys))
+
+    def get_journeys_in_increasing_time_order(self, lower:int, upper:int) -> list:
+        journeys = self.journey_repository.get_range_from_all_journeys_by_time(
+            lower, upper, False
+        )
+        return list(map(lambda j: j.as_dict(), journeys))
+
+    def get_journeys_in_distance_order(self, lower:int, upper:int) -> list:
+        journeys = self.journey_repository.get_range_from_all_journeys_by_distance(
+            lower, upper
+        )
+        return list(map(lambda j: j.as_dict(), journeys))
+
+    def get_journeys_in_duration_order(self, lower:int, upper:int) -> list:
+        journeys = self.journey_repository.get_range_from_all_journeys_by_duration(
+            lower, upper
+        )
+        return list(map(lambda j: j.as_dict(), journeys))

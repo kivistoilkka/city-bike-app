@@ -1,8 +1,10 @@
 import unittest
+import pytest
 from datetime import datetime
 
 from src.repositories.database import db
 from src.repositories.journey_repository import JourneyRepository
+from src.repositories.station_repository import StationRepository
 from src.services.journey_service import JourneyService
 from src.models.station import Station
 
@@ -42,12 +44,18 @@ class MockStationRepository:
 
 
 class TestJourneyService(unittest.TestCase):
+    @pytest.fixture(autouse=True)
+    def prepare_fixture(self, app):
+        self.app = app
+
     def setUp(self):
         journey_repository = JourneyRepository(db)
         mock_station_repository = MockStationRepository()
         self.service_with_mock_stations = JourneyService(
             journey_repository, mock_station_repository
         )
+        station_repository = StationRepository(db)
+        self.service = JourneyService(journey_repository, station_repository)
 
     def test_parses_valid_string(self):
         result = self.service_with_mock_stations.parse_journey(
@@ -109,7 +117,6 @@ class TestJourneyService(unittest.TestCase):
     def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
         result = self.service_with_mock_stations.parse_csv(
             './src/tests/data/invalid_journeys_test.csv')
-        # TODO: Test with non-existing station
 
         self.assertEqual(len(result), 3)
         self.assertEqual(
@@ -118,3 +125,107 @@ class TestJourneyService(unittest.TestCase):
             str(result[1]), '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec')
         self.assertEqual(
             str(result[2]), '2021-07-10 23:04:17 030 -> 010 2021-07-10 23:29:15, 2983 m, 1493 sec')
+
+    def test_lists_journeys_in_decreasing_order_as_dictionaries(self):
+        with self.app.app_context():
+            result = self.service.get_journeys_in_decreasing_time_order(35, 37)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(
+            result[0],
+            {
+                'id': 48,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:37:17'),
+                'return_time': datetime.fromisoformat('2021-05-31T23:44:09'),
+                'departure_station': 117,
+                'return_station': 41,
+                'distance': 1186,
+                'duration': 408
+            }
+        )
+        self.assertEqual(
+            result[1],
+            {
+                'id': 22,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:36:00'),
+                'return_time': datetime.fromisoformat('2021-05-31T23:54:08'),
+                'departure_station': 78,
+                'return_station': 402,
+                'distance': 3924,
+                'duration': 1083
+            }
+        )
+
+    def test_lists_journeys_in_increasing_order_as_dictionaries(self):
+        with self.app.app_context():
+            result = self.service.get_journeys_in_increasing_time_order(3, 7)
+        self.assertEqual(len(result), 4)
+        self.assertEqual(
+            result[0],
+            {
+                'id': 30,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:30:19'),
+                'return_time': datetime.fromisoformat('2021-05-31T23:34:35'),
+                'departure_station': 31,
+                'return_station': 63,
+                'distance': 967,
+                'duration': 243
+            }
+        )
+        self.assertEqual(
+            result[3],
+            {
+                'id': 27,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:31:27'),
+                'return_time': datetime.fromisoformat('2021-05-31T23:57:24'),
+                'departure_station': 315,
+                'return_station': 272,
+                'distance': 5495,
+                'duration': 1553
+            }
+        )
+
+    def test_lists_journeys_in_decreasing_distance_order_as_dictionaries(self):
+        with self.app.app_context():
+            result = self.service.get_journeys_in_distance_order(2, 4)
+        self.assertEqual(len(result), 2)
+        self.assertEqual(
+            result[0],
+            {
+                'id': 24,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:33:58'),
+                'return_time': datetime.fromisoformat('2021-05-31T23:49:52'),
+                'departure_station': 1,
+                'return_station': 57,
+                'distance': 4515,
+                'duration': 954
+            }
+        )
+        self.assertEqual(
+            result[1],
+            {
+                'id': 4,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:56:23'),
+                'return_time': datetime.fromisoformat('2021-06-01T00:29:58'),
+                'departure_station': 4,
+                'return_station': 65,
+                'distance': 4318,
+                'duration': 2009
+            }
+        )        
+
+    def test_lists_journeys_in_decreasing_duration_order_as_dictionaries(self):
+        with self.app.app_context():
+            result = self.service.get_journeys_in_duration_order(1, 2)
+        self.assertEqual(len(result), 1)
+        self.assertEqual(
+            result[0],
+            {
+                'id': 15,
+                'departure_time': datetime.fromisoformat('2021-05-31T23:49:36'),
+                'return_time': datetime.fromisoformat('2021-06-01T00:40:20'),
+                'departure_station': 547,
+                'return_station': 547,
+                'distance': 1227,
+                'duration': 3040
+            }
+        )

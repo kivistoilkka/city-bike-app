@@ -32,3 +32,14 @@ class Journey(db.Model):
         return f'{self.departure_time} {str(self.departure_station).zfill(3)} -> \
 {str(self.return_station).zfill(3)} {self.return_time}, \
 {self.distance} m, {self.duration} sec'
+
+    def as_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'departure_time': self.departure_time,
+            'return_time': self.return_time,
+            'departure_station': self.departure_station,
+            'return_station': self.return_station,
+            'distance': self.distance,
+            'duration': self.duration,
+        }

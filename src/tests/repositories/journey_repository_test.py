@@ -59,3 +59,28 @@ class TestJourneyRepository(unittest.TestCase):
             '2021-05-31 23:30:06 547 -> 547 2021-05-31 23:49:17, 739 m, 1146 sec'
         )
         self.assertEqual(result[2].id, 31)
+
+    def test_get_defined_range_list_of_all_journeys_as_Journey_objects_in_decreasing_distance_order(self):
+        with self.app.app_context():
+            result = self.repository.get_range_from_all_journeys_by_distance(0, 2)
+
+        self.assertEqual(len(result), 2)
+        self.assertEqual(
+            str(result[0]),
+            '2021-05-31 23:31:27 315 -> 272 2021-05-31 23:57:24, 5495 m, 1553 sec'
+        )
+        self.assertEqual(
+            str(result[1]),
+            '2021-05-31 23:53:04 240 -> 281 2021-06-01 00:14:52, 5366 m, 1304 sec'
+        )
+
+    def test_get_defined_range_list_of_all_journeys_as_Journey_objects_in_decreasing_duration_order(self):
+        with self.app.app_context():
+            result = self.repository.get_range_from_all_journeys_by_duration(0, 1)
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(
+            str(result[0]),
+            '2021-05-31 23:30:45 573 -> 511 2021-06-01 15:45:49, 2834 m, 58499 sec'
+        )
+
