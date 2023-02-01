@@ -16,27 +16,27 @@ class TestStationRepository(unittest.TestCase):
         with self.app.app_context():
             result = self.repository.get_station(1)
 
-            self.assertEqual(result.id, 1)
-            self.assertEqual(result.name_fi, 'Kaivopuisto')
-            self.assertEqual(result.address_fi, 'Meritori 1')
-            self.assertEqual(result.x_coord, 24.9502114714031)
-            self.assertEqual(result.y_coord, 60.155369615074)
+        self.assertEqual(result.id, 1)
+        self.assertEqual(result.name_fi, 'Kaivopuisto')
+        self.assertEqual(result.address_fi, 'Meritori 1')
+        self.assertEqual(result.x_coord, 24.9502114714031)
+        self.assertEqual(result.y_coord, 60.155369615074)
 
     def test_gets_complete_list_of_all_stations_as_Station_objects_in_number_order(self):
         with self.app.app_context():
             result = self.repository.get_all_stations()
 
-            self.assertEqual(len(result), 72)
-            self.assertEqual(
-                str(result[0]),
-                '001 Kaivopuisto: Meritori 1, x=24.9502114714031, y=60.155369615074'
-            )
-            self.assertEqual(
-                str(result[71]),
-                '727 Ratsutori: Leppävaarankatu 1, x=24.812419, y=60.217311'
-            )
+        self.assertEqual(len(result), 72)
+        self.assertEqual(
+            str(result[0]),
+            '001 Kaivopuisto: Meritori 1, x=24.9502114714031, y=60.155369615074'
+        )
+        self.assertEqual(
+            str(result[71]),
+            '727 Ratsutori: Leppävaarankatu 1, x=24.812419, y=60.217311'
+        )
 
-    def test_gets_defined_range_list_of_all_stations_as_Station_objects_in_number_order(self):
+    def test_gets_defined_range_list_of_all_stations_as_Station_objects_in_id_number_order(self):
         with self.app.app_context():
             result = self.repository.get_range_from_all_stations(3, 13)
 

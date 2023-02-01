@@ -16,7 +16,7 @@ class StationRepository:
         return stations
 
     def get_range_from_all_stations(self, lower: int, upper: int) -> list:
-        """Returns sublist of stations from ordered list of all stations, including
+        """Returns sublist of stations from all stations ordered by id, including
         station in position lower of the list (counting starts from 0) and excluding
         station in position upper.
 
