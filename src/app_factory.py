@@ -38,7 +38,8 @@ class AppFactory:
         journey_repository = JourneyRepository(db)
 
         station_service = StationService(db, station_repository)
-        journey_service = JourneyService(journey_repository, station_repository)
+        journey_service = JourneyService(
+            journey_repository, station_repository)
 
         database_builder = DatabaseBuilder()
         with app.app_context():

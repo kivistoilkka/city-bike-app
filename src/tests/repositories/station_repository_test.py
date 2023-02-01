@@ -39,7 +39,7 @@ class TestStationRepository(unittest.TestCase):
     def test_gets_defined_range_list_of_all_stations_as_Station_objects_in_number_order(self):
         with self.app.app_context():
             result = self.repository.get_range_from_all_stations(3, 13)
-        
+
         self.assertEqual(len(result), 10)
         self.assertEqual(
             str(result[0]),

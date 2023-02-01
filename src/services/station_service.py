@@ -48,10 +48,9 @@ class StationService:
         if not station:
             return None
         return {
-                'id': station.id,
-                'name_fi': station.name_fi,
-                'address_fi': station.address_fi,
-                'x_coord': station.x_coord,
-                'y_coord': station.y_coord,
-                # 'departures': station_info[5],
-            }
+            'id': station.id,
+            'name_fi': station.name_fi,
+            'address_fi': station.address_fi,
+            'x_coord': station.x_coord,
+            'y_coord': station.y_coord,
+        }

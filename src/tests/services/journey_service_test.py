@@ -85,7 +85,8 @@ class TestJourneyService(unittest.TestCase):
         self.assertEqual(result.duration, 210)
 
     def test_reads_and_parses_test_file_with_valid_journeys(self):
-        result = self.service_with_mock_stations.parse_csv('./src/tests/data/journey_test.csv')
+        result = self.service_with_mock_stations.parse_csv(
+            './src/tests/data/journey_test.csv')
 
         self.assertEqual(len(result), 8)
         self.assertEqual(
