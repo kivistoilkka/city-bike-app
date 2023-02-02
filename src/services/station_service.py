@@ -7,19 +7,6 @@ class StationService:
         self.db = db
         self.station_repository = station_repository
 
-    def parse_csv(self, file) -> list:
-        stations = []
-        with open(file, encoding='utf-8') as csv_file:
-            for line in csv.reader(csv_file, quotechar='"', delimiter=','):
-                if line[0] == 'FID':
-                    continue
-                try:
-                    station = self.parse_station(line)
-                    stations.append(station)
-                except ValueError:
-                    continue
-        return stations
-
     def validate_station(self, station: Station) -> bool:
         if station.x_coord < 19 or station.x_coord > 32:
             return False
@@ -42,6 +29,19 @@ class StationService:
         if not validation_result:
             raise ValueError
         return station
+
+    def parse_csv(self, file) -> dict:
+        stations = {}
+        with open(file, encoding='utf-8') as csv_file:
+            for line in csv.reader(csv_file, quotechar='"', delimiter=','):
+                if line[0] == 'FID':
+                    continue
+                try:
+                    station = self.parse_station(line)
+                    stations[station.id] = station
+                except ValueError:
+                    continue
+        return stations
 
     def get_station_info(self, id: int) -> Station:
         station = self.station_repository.get_station(id)

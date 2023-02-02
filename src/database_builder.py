@@ -13,7 +13,7 @@ class DatabaseBuilder:
 
     def _read_stations_and_add_to_database(self, station_service: StationService, file):
         stations = station_service.parse_csv(file)
-        for station in stations:
+        for station in stations.values():
             print(station)
             db.session.add(station)
         db.session.commit()

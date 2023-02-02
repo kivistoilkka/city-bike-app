@@ -57,26 +57,37 @@ class TestStationService(unittest.TestCase):
 
         self.assertEqual(len(result), 7)
         self.assertEqual(
-            str(result[0]), '501 Hanasaari: Hanasaarenranta 1, x=24.840319, y=60.16582')
+            str(result[501]), '501 Hanasaari: Hanasaarenranta 1, x=24.840319, y=60.16582')
         self.assertEqual(str(
-            result[1]), '539 Aalto-yliopisto (M), Tietot: Tietotie 4, x=24.820099, y=60.184987')
+            result[539]), '539 Aalto-yliopisto (M), Tietot: Tietotie 4, x=24.820099, y=60.184987')
         self.assertEqual(str(
-            result[2]), '541 Aalto-yliopisto (M), Korkea: Otaniementie 10, x=24.826671, y=60.184312')
+            result[541]), '541 Aalto-yliopisto (M), Korkea: Otaniementie 10, x=24.826671, y=60.184312')
         self.assertEqual(str(
-            result[3]), '902 Derby Business Park: Tarvonsalmenkatu 17, x=24.835356, y=60.209017')
+            result[902]), '902 Derby Business Park: Tarvonsalmenkatu 17, x=24.835356, y=60.209017')
         self.assertEqual(str(
-            result[4]), '001 Kaivopuisto: Meritori 1, x=24.9502114714031, y=60.155369615074')
+            result[1]), '001 Kaivopuisto: Meritori 1, x=24.9502114714031, y=60.155369615074')
         self.assertEqual(str(
-            result[5]), '002 Laivasillankatu: Laivasillankatu 14, x=24.9565097715858, y=60.1609890692806')
+            result[2]), '002 Laivasillankatu: Laivasillankatu 14, x=24.9565097715858, y=60.1609890692806')
         self.assertEqual(str(
-            result[6]), '405 Jollas: Jollaksentie 33, x=25.0616678668253, y=60.1644074899774')
+            result[405]), '405 Jollas: Jollaksentie 33, x=25.0616678668253, y=60.1644074899774')
 
     def test_reads_and_parses_test_file_with_some_invalid_stations(self):
+        """Stations in CSV file by row number:
+            1. (Headers)
+            2. Ok
+            3. Missing coordinates
+            4. Too big x
+            5. Too big y
+            6. Ok
+            7. Duplicate of row 2.
+            8. Negative x
+            9. Negative y
+        """
         result = self.service.parse_csv(
-            './src/tests/data/invalid_stations_test.csv')
+            './src/tests/data/invalid_and_duplicate_stations_test.csv')
 
         self.assertEqual(len(result), 2)
         self.assertEqual(
-            str(result[0]), '501 Hanasaari: Hanasaarenranta 1, x=24.840319, y=60.16582')
+            str(result[501]), '501 Hanasaari: Hanasaarenranta 1, x=24.840319, y=60.16582')
         self.assertEqual(str(
             result[1]), '001 Kaivopuisto: Meritori 1, x=24.9502114714031, y=60.155369615074')

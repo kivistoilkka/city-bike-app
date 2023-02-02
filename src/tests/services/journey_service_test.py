@@ -131,7 +131,8 @@ class TestJourneyService(unittest.TestCase):
         )
 
     def test_reads_and_parses_test_file_with_some_invalid__and_duplicate_journeys(self):
-        """Journeys in CSV file by row number:\n
+        """Journeys in CSV file by row number:
+            1.  (Headers)
             2.  Ok
             3.  Departure after return
             4.  Invalid departure time
