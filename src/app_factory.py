@@ -20,7 +20,7 @@ class AppFactory:
         pass
 
     @staticmethod
-    def create_app(testing=False) -> Flask:
+    def create_app(testing=False, build_optimized=False) -> Flask:
         app = Flask(__name__)
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -54,7 +54,8 @@ class AppFactory:
                     station_service,
                     journeys_created,
                     journey_service,
-                    testing
+                    testing,
+                    build_optimized
                 )
 
         Routes(

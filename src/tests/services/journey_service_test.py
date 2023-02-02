@@ -94,7 +94,7 @@ class TestJourneyService(unittest.TestCase):
 
     def test_reads_and_parses_test_file_with_valid_journeys(self):
         result = self.service_with_mock_stations.parse_csv(
-            './src/tests/data/journey_test.csv')
+            './src/tests/data/journey_test.csv', optimized=False, logs=False)
 
         self.assertEqual(len(result), 8)
         self.assertEqual(
@@ -149,7 +149,9 @@ class TestJourneyService(unittest.TestCase):
             15. Ok
         """        
         result = self.service_with_mock_stations.parse_csv(
-            './src/tests/data/invalid_and_duplicate_journeys_test.csv')
+            './src/tests/data/invalid_and_duplicate_journeys_test.csv',
+            optimized=False, logs=False
+        )
 
         self.assertEqual(len(result), 3)
         self.assertEqual(

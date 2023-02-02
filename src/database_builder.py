@@ -11,18 +11,23 @@ class DatabaseBuilder:
     def __init__(self) -> None:
         pass
 
-    def _read_stations_and_add_to_database(self, station_service: StationService, file):
+    def _read_stations_and_add_to_database(self, station_service: StationService, file:str):
         stations = station_service.parse_csv(file)
         for station in stations.values():
             print(station)
             db.session.add(station)
         db.session.commit()
 
-    def _read_journeys_and_add_to_database(self, journey_service: JourneyService, file):
-        #TODO: Make an option to optimize journey parsing so that instead of returning dictionary,
-        # it validates and checks journey for duplicates and adds it directly to database if ok
-        print(f'Reading journeys from file {file}')
-        journeys = journey_service.parse_csv(file, logs=True)
+    def _read_journeys_and_add_to_database(
+        self,journey_service: JourneyService, file:str, optimized:bool
+    ):
+        if optimized:
+            print(f'Reading and adding journeys from file {file}')
+        else:
+            print(f'Reading journeys from file {file}')
+        journeys = journey_service.parse_csv(file, optimized, logs=True)
+        if optimized:
+            return
         print()
         print(f'Adding journeys from {file} to the database')
         for journey in journeys.values():
@@ -37,6 +42,7 @@ class DatabaseBuilder:
         journeys_created: bool,
         journey_service,
         testing: bool,
+        optimized: bool
     ):
         db.create_all()
         if not stations_created:
@@ -62,10 +68,11 @@ class DatabaseBuilder:
                 for file in TestConfig().journey_files:
                     self._read_journeys_and_add_to_database(
                         journey_service,
-                        file
+                        file,
+                        optimized
                     )
             else:
                 for file in ProductionConfig().journey_files:
                     self._read_journeys_and_add_to_database(
-                        journey_service, file)
+                        journey_service, file, optimized)
         print()

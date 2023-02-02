@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime, timedelta
+from src.repositories.database import db
 from src.models.journey import Journey
 
 
@@ -45,7 +46,7 @@ class JourneyService:
             raise ValueError
         return journey
     
-    def parse_csv(self, file, logs=False) -> dict:
+    def parse_csv(self, file:str, optimized:bool, logs=False) -> dict:
         journeys = {}
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
@@ -53,11 +54,17 @@ class JourneyService:
                     continue
                 try:
                     journey = self.parse_journey(line)
-                    journeys[str(journey)] = journey
                     if logs:
-                        print(journey)
+                        print('Read:', journey)
+                    if optimized and str(journey) not in journeys.keys():
+                        db.session.add(journey)
+                        print('Added:', journey)
+                    journeys[str(journey)] = journey
+
                 except ValueError:
                     continue
+        if optimized:
+            db.session.commit()
         return journeys
 
     def get_journeys_in_decreasing_time_order(self, lower:int, upper:int) -> list:
