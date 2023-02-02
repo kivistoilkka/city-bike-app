@@ -98,33 +98,71 @@ class TestJourneyService(unittest.TestCase):
 
         self.assertEqual(len(result), 8)
         self.assertEqual(
-            str(result[0]), '2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec')
+            str(result['2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec']),
+            '2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec'
+        )
         self.assertEqual(
-            str(result[1]), '2021-05-31 20:45:46 222 -> 095 2021-05-31 20:56:55, 3171 m, 665 sec')
+            str(result['2021-05-31 20:45:46 222 -> 095 2021-05-31 20:56:55, 3171 m, 665 sec']),
+            '2021-05-31 20:45:46 222 -> 095 2021-05-31 20:56:55, 3171 m, 665 sec'
+        )
         self.assertEqual(
-            str(result[2]), '2021-05-31 20:41:56 541 -> 517 2021-05-31 21:08:56, 2360 m, 1614 sec')
+            str(result['2021-05-31 20:41:56 541 -> 517 2021-05-31 21:08:56, 2360 m, 1614 sec']),
+            '2021-05-31 20:41:56 541 -> 517 2021-05-31 21:08:56, 2360 m, 1614 sec'
+        )
         self.assertEqual(
-            str(result[3]), '2021-06-30 23:59:34 009 -> 040 2021-07-01 00:06:23, 1602 m, 405 sec')
+            str(result['2021-06-30 23:59:34 009 -> 040 2021-07-01 00:06:23, 1602 m, 405 sec']),
+            '2021-06-30 23:59:34 009 -> 040 2021-07-01 00:06:23, 1602 m, 405 sec'
+        )
         self.assertEqual(
-            str(result[4]), '2021-06-30 23:39:30 239 -> 286 2021-07-01 00:05:04, 3608 m, 1529 sec')
+            str(result['2021-06-30 23:39:30 239 -> 286 2021-07-01 00:05:04, 3608 m, 1529 sec']),
+            '2021-06-30 23:39:30 239 -> 286 2021-07-01 00:05:04, 3608 m, 1529 sec'
+        )
         self.assertEqual(
-            str(result[5]), '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec')
+            str(result['2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec']),
+            '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec'
+        )
         self.assertEqual(
-            str(result[6]), '2021-07-31 23:59:59 113 -> 078 2021-08-01 00:09:15, 1602 m, 553 sec')
+            str(result['2021-07-31 23:59:59 113 -> 078 2021-08-01 00:09:15, 1602 m, 553 sec']),
+            '2021-07-31 23:59:59 113 -> 078 2021-08-01 00:09:15, 1602 m, 553 sec'
+        )
         self.assertEqual(
-            str(result[7]), '2021-07-31 23:51:08 325 -> 283 2021-08-01 00:06:13, 3389 m, 900 sec')
+            str(result['2021-07-31 23:51:08 325 -> 283 2021-08-01 00:06:13, 3389 m, 900 sec']),
+            '2021-07-31 23:51:08 325 -> 283 2021-08-01 00:06:13, 3389 m, 900 sec'
+        )
 
-    def test_reads_and_parses_test_file_with_some_invalid_journeys(self):
+    def test_reads_and_parses_test_file_with_some_invalid__and_duplicate_journeys(self):
+        """Journeys in CSV file by row number:\n
+            2.  Ok
+            3.  Departure after return
+            4.  Invalid departure time
+            5.  Invalid return time
+            6.  Negative departure station number
+            7.  Ok
+            8.  Negative return station number
+            9.  Departure is string
+            10. Return station not in stations in MockStationRepository
+            11. Covered distance less than 10 meters
+            12. Departure station not in stations in MockStationRepository
+            13. Duplicate of row 7.
+            14. Duration less than 10 seconds
+            15. Ok
+        """        
         result = self.service_with_mock_stations.parse_csv(
-            './src/tests/data/invalid_journeys_test.csv')
+            './src/tests/data/invalid_and_duplicate_journeys_test.csv')
 
         self.assertEqual(len(result), 3)
         self.assertEqual(
-            str(result[0]), '2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec')
+            str(result['2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec']),
+            '2021-05-31 20:47:12 045 -> 004 2021-05-31 21:05:56, 4149 m, 1118 sec'
+        )
         self.assertEqual(
-            str(result[1]), '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec')
+            str(result['2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec']),
+            '2021-06-01 00:00:01 089 -> 711 2021-06-01 00:26:27, 5660 m, 1583 sec'
+        )
         self.assertEqual(
-            str(result[2]), '2021-07-10 23:04:17 030 -> 010 2021-07-10 23:29:15, 2983 m, 1493 sec')
+            str(result['2021-07-10 23:04:17 030 -> 010 2021-07-10 23:29:15, 2983 m, 1493 sec']),
+            '2021-07-10 23:04:17 030 -> 010 2021-07-10 23:29:15, 2983 m, 1493 sec'
+        )
 
     def test_lists_journeys_in_decreasing_order_as_dictionaries(self):
         with self.app.app_context():

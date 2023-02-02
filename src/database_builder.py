@@ -19,11 +19,13 @@ class DatabaseBuilder:
         db.session.commit()
 
     def _read_journeys_and_add_to_database(self, journey_service: JourneyService, file):
-        print(f'Reading joyrneys from file {file}')
+        #TODO: Make an option to optimize journey parsing so that instead of returning dictionary,
+        # it validates and checks journey for duplicates and adds it directly to database if ok
+        print(f'Reading journeys from file {file}')
         journeys = journey_service.parse_csv(file, logs=True)
         print()
         print(f'Adding journeys from {file} to the database')
-        for journey in journeys:
+        for journey in journeys.values():
             db.session.add(journey)
             print(journey)
         db.session.commit()

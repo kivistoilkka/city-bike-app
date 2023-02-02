@@ -8,21 +8,6 @@ class JourneyService:
         self.journey_repository = journey_repository
         self.station_repository = station_repository
 
-    def parse_csv(self, file, logs=False) -> list:
-        journeys = []
-        with open(file, encoding='utf-8') as csv_file:
-            for line in csv.reader(csv_file, quotechar='"', delimiter=','):
-                if line[0] == 'Departure':
-                    continue
-                try:
-                    journey = self.parse_journey(line)
-                    journeys.append(journey)
-                    if logs:
-                        print(journey)
-                except ValueError:
-                    continue
-        return journeys
-
     def validate_journey(self, journey: Journey) -> bool:
         if (journey.return_time - journey.departure_time) < timedelta(0):
             return False
@@ -59,6 +44,21 @@ class JourneyService:
         if not validation_result:
             raise ValueError
         return journey
+    
+    def parse_csv(self, file, logs=False) -> dict:
+        journeys = {}
+        with open(file, encoding='utf-8') as csv_file:
+            for line in csv.reader(csv_file, quotechar='"', delimiter=','):
+                if line[0] == 'Departure':
+                    continue
+                try:
+                    journey = self.parse_journey(line)
+                    journeys[str(journey)] = journey
+                    if logs:
+                        print(journey)
+                except ValueError:
+                    continue
+        return journeys
 
     def get_journeys_in_decreasing_time_order(self, lower:int, upper:int) -> list:
         journeys = self.journey_repository.get_range_from_all_journeys_by_time(
