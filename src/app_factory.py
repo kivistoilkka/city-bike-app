@@ -1,5 +1,6 @@
 from os import getenv
 from flask import Flask
+from flask_cors import CORS
 from sqlalchemy import inspect
 
 from src.config.config import ProductionConfig, TestConfig
@@ -21,7 +22,7 @@ class AppFactory:
 
     @staticmethod
     def create_app(testing=False, build_optimized=False) -> Flask:
-        app = Flask(__name__)
+        app = Flask(__name__, static_folder='../build', template_folder='../build', static_url_path='/')
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
         uri = ProductionConfig().database_uri
@@ -58,6 +59,7 @@ class AppFactory:
                     build_optimized
                 )
 
+        CORS(app)
         Routes(
             general_repository,
             station_service,

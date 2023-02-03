@@ -1,4 +1,4 @@
-from flask import redirect, jsonify, abort
+from flask import jsonify, abort, render_template
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -12,7 +12,7 @@ class Routes:
     def add_routes(self, app):
         @app.route('/')
         def index():
-            return 'Welcome to City Bike App!'
+            return render_template('index.html')
 
         @app.route('/api/database_info')
         def database_info():
