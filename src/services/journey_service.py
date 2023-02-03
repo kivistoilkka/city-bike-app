@@ -50,18 +50,22 @@ class JourneyService:
         journeys = {}
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
+                if logs:
+                    print('Line:', line[0], line[1], line[2], line[4], line[6], line[7])
                 if line[0] == 'Departure':
                     continue
                 try:
                     journey = self.parse_journey(line)
                     if logs:
-                        print('Read:', journey)
+                        print('Parsed:', journey)
                     if optimized and str(journey) not in journeys.keys():
                         db.session.add(journey)
-                        print('Added:', journey)
+                        if logs:
+                            print('Added:', journey)
                     journeys[str(journey)] = journey
-
                 except ValueError:
+                    if logs:
+                        print('Line rejected')
                     continue
         if optimized:
             db.session.commit()

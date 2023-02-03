@@ -25,14 +25,14 @@ class DatabaseBuilder:
             print(f'Reading and adding journeys from file {file}')
         else:
             print(f'Reading journeys from file {file}')
-        journeys = journey_service.parse_csv(file, optimized, logs=True)
+        journeys = journey_service.parse_csv(file, optimized, logs=False)
         if optimized:
             return
         print()
         print(f'Adding journeys from {file} to the database')
         for journey in journeys.values():
             db.session.add(journey)
-            print(journey)
+            print('Added:', journey)
         db.session.commit()
 
     def build_database(
