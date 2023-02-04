@@ -27,6 +27,16 @@ class Routes:
             except ValueError as err:
                 return abort(404, str(err))
 
+        @app.route('/api/all_stations_id_decreasing/')
+        def all_stations_id_decreasing():
+            try:
+                station_list = self.station_service.get_all_stations_in_decreasing_id_order()
+                return jsonify(station_list)
+            except ValueError as err:
+                return abort(404, str(err))
+            except SQLAlchemyError as err:
+                return abort(404, str(err))
+
         @app.route('/api/stations_id_decreasing/<int:lower>_<int:upper>')
         def stations_id_decreasing(lower, upper):
             if upper < lower:

@@ -47,10 +47,18 @@ class StationService:
         station = self.station_repository.get_station(id)
         if not station:
             return None
-        return station.as_dict()
+        journeys = self.station_repository.get_journeys_to_and_from_station(id)
+        station_dict = station.as_dict()
+        station_dict['departures'] = journeys['departures']
+        station_dict['returns'] = journeys['returns']
+        return station_dict
 
     def get_stations_in_decreasing_id_order(self, lower:int, upper:int) -> list:
         stations = self.station_repository.get_range_from_all_stations(
             lower, upper
         )
+        return list(map(lambda s: s.as_dict(), stations))
+
+    def get_all_stations_in_decreasing_id_order(self) -> list:
+        stations = self.station_repository.get_all_stations()
         return list(map(lambda s: s.as_dict(), stations))

@@ -4,4 +4,3 @@ __pycache__
 htmlcov
 .env
 /data
-build

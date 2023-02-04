@@ -16,6 +16,10 @@ def dev(ctx):
     )
 
 @task
+def build_frontend(ctx):
+    ctx.run('rm -rf build && cd ../city-bike-app-frontend && npm run build && cp -r build ../city-bike-app')
+
+@task
 def test(ctx):
     ctx.run("pytest src", pty=True)
 

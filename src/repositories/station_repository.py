@@ -1,4 +1,5 @@
 from src.models.station import Station
+from src.models.journey import Journey
 
 
 class StationRepository:
@@ -30,3 +31,8 @@ class StationRepository:
         stations = Station.query.order_by(Station.id).limit(
             upper-lower).offset(lower).all()
         return stations
+
+    def get_journeys_to_and_from_station(self, id:int) -> dict:
+        departures = Journey.query.filter(Journey.departure_station == id).count()
+        returns = Journey.query.filter(Journey.return_station == id).count()
+        return { 'departures': departures, 'returns': returns }
