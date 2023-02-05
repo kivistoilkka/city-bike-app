@@ -50,10 +50,10 @@ class JourneyService:
         journeys = {}
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
+                if logs:
+                    print('Line: ', line)
                 if line[0] == 'Departure':
                     continue
-                if logs:
-                    print('Line:', line[0], line[1], line[2], line[4], line[6], line[7])
                 try:
                     journey = self.parse_journey(line)
                     # if logs:
