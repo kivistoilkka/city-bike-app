@@ -56,16 +56,17 @@ class JourneyService:
                     continue
                 try:
                     journey = self.parse_journey(line)
-                    if logs:
-                        print('Parsed:', journey)
+                    # if logs:
+                    #     print('Parsed:', journey)
                     if optimized and str(journey) not in journeys.keys():
                         db.session.add(journey)
-                        if logs:
-                            print('Added:', journey)
+                        db.session.commit()
+                        # if logs:
+                        #     print('Added:', journey)
                     journeys[str(journey)] = journey
                 except ValueError:
-                    if logs:
-                        print('Line rejected')
+                    # if logs:
+                    #     print('Line rejected')
                     continue
         if optimized:
             db.session.commit()

@@ -25,9 +25,10 @@ class AppFactory:
         app = Flask(__name__, static_folder='../build', template_folder='../build', static_url_path='/')
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-        uri = ProductionConfig().database_uri
         if testing or getenv('RUNNING_DEV'):
             uri = TestConfig().database_uri
+        else:
+            uri = ProductionConfig().database_uri
         if uri.startswith("postgres://"):
             uri = uri.replace("postgres://", "postgresql+psycopg2://", 1)
         app.config["SQLALCHEMY_DATABASE_URI"] = uri

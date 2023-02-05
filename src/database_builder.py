@@ -25,7 +25,7 @@ class DatabaseBuilder:
             print(f'Reading and adding journeys from file {file}')
         else:
             print(f'Reading journeys from file {file}')
-        journeys = journey_service.parse_csv(file, optimized, logs=False)
+        journeys = journey_service.parse_csv(file, optimized, logs=True)
         if optimized:
             return
         print()
