@@ -15,13 +15,13 @@ Application is written and it is tested with Python 3.8 and it's dependencies ar
 poetry install
 ```
 
-3. Create .env file and place it in the root of the project. Here is the example of my file used for development:
+3. Create .env file and place it in the root of the project. Here is anexample of my file used for development:
 ```bash
-DATABASE_URL=postgresql+psycopg2:///city_bike_app_testing
+DATABASE_URL=postgresql+psycopg2:///city_bike_app
 TEST_DATABASE_URL=postgresql+psycopg2:///city_bike_app_testing
 ```
 
-4. Download four CSV files linked in [assgnment repository](https://github.com/solita/dev-academy-2023-exercise), create directory 'data' in project root and place those files there.
+4. Download four CSV files linked in [assignment repository](https://github.com/solita/dev-academy-2023-exercise), create directory 'data' in project root and place those files there.
 
 5. Run program. It will build the database at the beginning of first run.
 
