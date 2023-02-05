@@ -1,4 +1,4 @@
-CREATE TABLE stations (
+CREATE TABLE station (
     id SERIAL PRIMARY KEY,
     name_fi TEXT,
     address_fi TEXT,
@@ -6,7 +6,7 @@ CREATE TABLE stations (
     y_coord NUMERIC
 );
 
-CREATE TABLE journeys (
+CREATE TABLE journey (
     id SERIAL PRIMARY KEY,
     departure_time TIMESTAMP,
     return_time TIMESTAMP,

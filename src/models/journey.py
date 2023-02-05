@@ -1,17 +1,16 @@
 from datetime import datetime
-import sqlalchemy as sa
-from src.models.station import Station
+from sqlalchemy import Column, Integer, DateTime, ForeignKey
 from src.repositories.database import db
 
 
 class Journey(db.Model):
-    id = sa.Column(sa.Integer, primary_key=True)
-    departure_time = sa.Column(sa.DateTime)
-    return_time = sa.Column(sa.DateTime)
-    departure_station = sa.Column(sa.ForeignKey(Station.id))
-    return_station = sa.Column(sa.ForeignKey(Station.id))
-    distance = sa.Column(sa.Integer)
-    duration = sa.Column(sa.Integer)
+    id = Column(Integer, primary_key=True)
+    departure_time = Column(DateTime)
+    return_time = Column(DateTime)
+    departure_station = Column(Integer, ForeignKey('station.id'))
+    return_station = Column(Integer)
+    distance = Column(Integer)
+    duration = Column(Integer)
 
     def __init__(self,
                  dep_time: datetime,
