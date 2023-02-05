@@ -1,4 +1,4 @@
-from flask import jsonify, abort, render_template
+from flask import jsonify, abort, render_template, redirect
 from sqlalchemy.exc import SQLAlchemyError
 
 
@@ -13,6 +13,18 @@ class Routes:
         @app.route('/')
         def index():
             return render_template('index.html')
+
+        @app.route('/stations')
+        def front_stations():
+            return redirect('/')
+
+        @app.route('/journeys')
+        def front_journeys():
+            return redirect('/')
+
+        @app.route('/stations/<int:id>')
+        def front_station_info():
+            return redirect('/')
 
         @app.route('/api/database_info')
         def database_info():
