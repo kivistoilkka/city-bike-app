@@ -33,6 +33,7 @@ class StationRepository:
         return stations
 
     def get_journeys_to_and_from_station(self, id:int) -> dict:
+        self.get_station(id)
         departures = Journey.query.filter(Journey.departure_station == id).count()
         returns = Journey.query.filter(Journey.return_station == id).count()
         return { 'departures': departures, 'returns': returns }

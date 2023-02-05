@@ -49,3 +49,40 @@ class TestStationRepository(unittest.TestCase):
             str(result[9]),
             '041 Ympyrätalo: Porthaninrinne 1, x=24.949399999845, y=60.1808629918822'
         )
+
+    def test_gets_correct_number_of_journeys_to_and_from_station(self):
+        with self.app.app_context():
+            result = self.repository.get_journeys_to_and_from_station(1)
+        self.assertEqual(result['departures'], 1)
+        self.assertEqual(result['returns'], 0)
+
+        with self.app.app_context():
+            result = self.repository.get_journeys_to_and_from_station(30)
+        self.assertEqual(result['departures'], 3)
+        self.assertEqual(result['returns'], 0)
+
+        with self.app.app_context():
+            result = self.repository.get_journeys_to_and_from_station(34)
+        self.assertEqual(result['departures'], 1)
+        self.assertEqual(result['returns'], 1)
+
+        with self.app.app_context():
+            result = self.repository.get_journeys_to_and_from_station(62)
+        self.assertEqual(result['departures'], 0)
+        self.assertEqual(result['returns'], 2)
+
+        with self.app.app_context():
+            result = self.repository.get_journeys_to_and_from_station(547)
+        self.assertEqual(result['departures'], 3)
+        self.assertEqual(result['returns'], 3)
+
+        with self.app.app_context():
+            result = self.repository.get_journeys_to_and_from_station(727)
+        self.assertEqual(result['departures'], 2)
+        self.assertEqual(result['returns'], 0)
+
+    def test_returns_valueerror_if_station_missing_when_getting_journeys_from_and_to(self):
+        with self.assertRaises(ValueError) as cm:
+            with self.app.app_context():
+                result = self.repository.get_journeys_to_and_from_station(2)
+        self.assertEqual(str(cm.exception), 'Station id not in database')
