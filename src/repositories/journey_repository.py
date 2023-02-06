@@ -21,7 +21,7 @@ class JourneyRepository:
             upper-lower).offset(lower).all()
         return journeys
 
-    def get_range_from_all_journeys_by_time(self, lower: int, upper: int, decreasing:bool) -> list:
+    def get_range_from_all_journeys_by_time(self, lower: int, upper: int, decreasing: bool) -> list:
         """Returns sublist of journeys from all journeys ordered by time, including
         journey in position 'lower' of the list (counting starts from 0) and excluding
         journey in position 'upper'.

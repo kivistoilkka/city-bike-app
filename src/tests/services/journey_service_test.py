@@ -148,7 +148,7 @@ class TestJourneyService(unittest.TestCase):
             13. Duplicate of row 7.
             14. Duration less than 10 seconds
             15. Ok
-        """        
+        """
         result = self.service_with_mock_stations.parse_csv(
             './src/tests/data/invalid_and_duplicate_journeys_test.csv',
             self.mock_station_repository.stations, logs=False
@@ -253,7 +253,7 @@ class TestJourneyService(unittest.TestCase):
                 'distance': 4318,
                 'duration': 2009
             }
-        )        
+        )
 
     def test_lists_journeys_in_decreasing_duration_order_as_dictionaries(self):
         with self.app.app_context():

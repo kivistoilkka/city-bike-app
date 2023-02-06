@@ -53,7 +53,7 @@ class StationService:
         station_dict['returns'] = journeys['returns']
         return station_dict
 
-    def get_stations_in_decreasing_id_order(self, lower:int, upper:int) -> list:
+    def get_stations_in_decreasing_id_order(self, lower: int, upper: int) -> list:
         stations = self.station_repository.get_range_from_all_stations(
             lower, upper
         )

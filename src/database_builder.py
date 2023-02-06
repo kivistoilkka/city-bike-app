@@ -16,7 +16,7 @@ class DatabaseBuilder:
         pass
 
     def _read_stations_and_add_to_database(
-        self, station_service: StationService, session, file:str
+        self, station_service: StationService, session, file: str
     ) -> dict:
         stations = station_service.parse_csv(file)
         session.add_all(stations.values())
@@ -24,7 +24,7 @@ class DatabaseBuilder:
         return stations
 
     def _read_journeys_and_add_to_database(
-        self,journey_service: JourneyService, session, file:str, stations:dict
+        self, journey_service: JourneyService, session, file: str, stations: dict
     ):
         print(f'Reading journeys from file {file}')
         journeys = journey_service.parse_csv(file, stations, logs=False)

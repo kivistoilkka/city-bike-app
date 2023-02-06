@@ -43,7 +43,7 @@ class JourneyService:
             raise ValueError
         return journey
 
-    def parse_csv(self, file:str, stations:dict, logs=False) -> dict:
+    def parse_csv(self, file: str, stations: dict, logs=False) -> dict:
         journeys = {}
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
@@ -55,8 +55,8 @@ class JourneyService:
                     journey = self.parse_journey(line, stations)
                     # if logs:
                     #     print('Parsed:', journey)
-                        # if logs:
-                        #     print('Added:', journey)
+                    # if logs:
+                    #     print('Added:', journey)
                     if str(journey) not in journeys:
                         journeys[str(journey)] = journey
                 except ValueError:
@@ -65,25 +65,25 @@ class JourneyService:
                     continue
         return journeys
 
-    def get_journeys_in_decreasing_time_order(self, lower:int, upper:int) -> list:
+    def get_journeys_in_decreasing_time_order(self, lower: int, upper: int) -> list:
         journeys = self.journey_repository.get_range_from_all_journeys_by_time(
             lower, upper, True
         )
         return list(map(lambda j: j.as_dict(), journeys))
 
-    def get_journeys_in_increasing_time_order(self, lower:int, upper:int) -> list:
+    def get_journeys_in_increasing_time_order(self, lower: int, upper: int) -> list:
         journeys = self.journey_repository.get_range_from_all_journeys_by_time(
             lower, upper, False
         )
         return list(map(lambda j: j.as_dict(), journeys))
 
-    def get_journeys_in_distance_order(self, lower:int, upper:int) -> list:
+    def get_journeys_in_distance_order(self, lower: int, upper: int) -> list:
         journeys = self.journey_repository.get_range_from_all_journeys_by_distance(
             lower, upper
         )
         return list(map(lambda j: j.as_dict(), journeys))
 
-    def get_journeys_in_duration_order(self, lower:int, upper:int) -> list:
+    def get_journeys_in_duration_order(self, lower: int, upper: int) -> list:
         journeys = self.journey_repository.get_range_from_all_journeys_by_duration(
             lower, upper
         )

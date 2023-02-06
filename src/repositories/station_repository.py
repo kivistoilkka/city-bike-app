@@ -31,8 +31,8 @@ class StationRepository:
             upper-lower).offset(lower).all()
         return stations
 
-    def get_journeys_to_and_from_station(self, id:int) -> dict:
+    def get_journeys_to_and_from_station(self, id: int) -> dict:
         station = self.get_station(id)
         departures = len(station.departures)
         returns = station.returns
-        return { 'departures': departures, 'returns': returns }
+        return {'departures': departures, 'returns': returns}

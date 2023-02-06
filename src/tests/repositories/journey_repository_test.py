@@ -30,7 +30,8 @@ class TestJourneyRepository(unittest.TestCase):
 
     def test_get_defined_range_list_of_all_journeys_as_Journey_objects_in_decreasing_time_order(self):
         with self.app.app_context():
-            result = self.repository.get_range_from_all_journeys_by_time(6, 11, True)
+            result = self.repository.get_range_from_all_journeys_by_time(
+                6, 11, True)
 
         self.assertEqual(len(result), 5)
         self.assertEqual(
@@ -46,7 +47,8 @@ class TestJourneyRepository(unittest.TestCase):
 
     def test_get_defined_range_list_of_all_journeys_as_Journey_objects_in_increasing_time_order(self):
         with self.app.app_context():
-            result = self.repository.get_range_from_all_journeys_by_time(0, 3, False)
+            result = self.repository.get_range_from_all_journeys_by_time(
+                0, 3, False)
 
         self.assertEqual(len(result), 3)
         self.assertEqual(
@@ -62,7 +64,8 @@ class TestJourneyRepository(unittest.TestCase):
 
     def test_get_defined_range_list_of_all_journeys_as_Journey_objects_in_decreasing_distance_order(self):
         with self.app.app_context():
-            result = self.repository.get_range_from_all_journeys_by_distance(0, 2)
+            result = self.repository.get_range_from_all_journeys_by_distance(
+                0, 2)
 
         self.assertEqual(len(result), 2)
         self.assertEqual(
@@ -76,11 +79,11 @@ class TestJourneyRepository(unittest.TestCase):
 
     def test_get_defined_range_list_of_all_journeys_as_Journey_objects_in_decreasing_duration_order(self):
         with self.app.app_context():
-            result = self.repository.get_range_from_all_journeys_by_duration(0, 1)
+            result = self.repository.get_range_from_all_journeys_by_duration(
+                0, 1)
 
         self.assertEqual(len(result), 1)
         self.assertEqual(
             str(result[0]),
             '2021-05-31 23:30:45 573 -> 511 2021-06-01 15:45:49, 2834 m, 58499 sec'
         )
-
