@@ -3,6 +3,9 @@ from os import getenv
 from src.config.config import ProductionConfig, TestConfig
 from src.repositories.database import db
 
+from src.models.station import Station
+from src.models.journey import Journey
+
 from src.services.station_service import StationService
 from src.services.journey_service import JourneyService
 
@@ -45,8 +48,8 @@ class DatabaseBuilder:
         testing: bool,
         optimized: bool
     ):
-        db.create_all()
         if not stations_created:
+            Station.__table__.create(db.engine)
             print('**************')
             print('Adding stations to database')
             print('**************')
@@ -62,6 +65,7 @@ class DatabaseBuilder:
                 )
         print()
         if not journeys_created:
+            Journey.__table__.create(db.engine)
             print('**************')
             print('Adding journeys to database')
             print('**************')
