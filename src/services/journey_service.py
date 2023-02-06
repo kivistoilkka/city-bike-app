@@ -18,25 +18,23 @@ class JourneyService:
             return False
         return True
 
-    def parse_journey(self, line: list) -> Journey:
+    def parse_journey(self, line: list, stations: dict) -> Journey:
         dep_time = datetime.fromisoformat(line[0])
         ret_time = datetime.fromisoformat(line[1])
         dep_station_id = int(line[2])
-        if dep_station_id < 0:
-            raise ValueError
-        dep_station = self.station_repository.get_station(dep_station_id)
         ret_station_id = int(line[4])
-        if ret_station_id < 0:
+        if dep_station_id < 0 or ret_station_id < 0:
             raise ValueError
-        ret_station = self.station_repository.get_station(ret_station_id)
+        if dep_station_id not in stations.keys() or ret_station_id not in stations.keys():
+            raise ValueError
         distance = int(line[6])
         duration = int(line[7])
 
         journey = Journey(
             dep_time,
             ret_time,
-            dep_station.id,
-            ret_station.id,
+            dep_station_id,
+            ret_station_id,
             distance,
             duration
         )
@@ -46,7 +44,7 @@ class JourneyService:
             raise ValueError
         return journey
     
-    def parse_csv(self, file:str, optimized:bool, logs=False) -> dict:
+    def parse_csv(self, file:str, stations:dict, optimized:bool, logs=False) -> dict:
         journeys = {}
         with open(file, encoding='utf-8') as csv_file:
             for line in csv.reader(csv_file, quotechar='"', delimiter=','):
@@ -55,7 +53,7 @@ class JourneyService:
                 if line[0] == 'Departure':
                     continue
                 try:
-                    journey = self.parse_journey(line)
+                    journey = self.parse_journey(line, stations)
                     # if logs:
                     #     print('Parsed:', journey)
                     if optimized and str(journey) not in journeys.keys():

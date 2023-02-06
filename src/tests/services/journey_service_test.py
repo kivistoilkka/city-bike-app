@@ -50,9 +50,9 @@ class TestJourneyService(unittest.TestCase):
 
     def setUp(self):
         journey_repository = JourneyRepository(db)
-        mock_station_repository = MockStationRepository()
+        self.mock_station_repository = MockStationRepository()
         self.service_with_mock_stations = JourneyService(
-            journey_repository, mock_station_repository
+            journey_repository, self.mock_station_repository
         )
         station_repository = StationRepository(db)
         self.service = JourneyService(journey_repository, station_repository)
@@ -62,7 +62,7 @@ class TestJourneyService(unittest.TestCase):
             [
                 '2021-05-01T00:00:11', '2021-05-01T00:04:34', '138', 'Arabiankatu',
                 '138', 'Arabiankatu', '1057', '259'
-            ]
+            ], self.mock_station_repository.stations
         )
 
         self.assertEqual(result.departure_time,
@@ -80,7 +80,7 @@ class TestJourneyService(unittest.TestCase):
                 '2021-05-31T21:48:34', '2021-05-31T21:52:05', '541',
                 'Aalto-yliopisto (M), Korkeakouluaukio', '547', 'Jämeräntaival',
                 '702', '210'
-            ]
+            ], self.mock_station_repository.stations
         )
 
         self.assertEqual(result.departure_time,
@@ -94,7 +94,9 @@ class TestJourneyService(unittest.TestCase):
 
     def test_reads_and_parses_test_file_with_valid_journeys(self):
         result = self.service_with_mock_stations.parse_csv(
-            './src/tests/data/journey_test.csv', optimized=False, logs=False)
+            './src/tests/data/journey_test.csv',
+            self.mock_station_repository.stations,
+            optimized=False, logs=False)
 
         self.assertEqual(len(result), 8)
         self.assertEqual(
@@ -150,6 +152,7 @@ class TestJourneyService(unittest.TestCase):
         """        
         result = self.service_with_mock_stations.parse_csv(
             './src/tests/data/invalid_and_duplicate_journeys_test.csv',
+            self.mock_station_repository.stations,
             optimized=False, logs=False
         )
 

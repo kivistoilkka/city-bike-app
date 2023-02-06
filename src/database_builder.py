@@ -11,21 +11,22 @@ class DatabaseBuilder:
     def __init__(self) -> None:
         pass
 
-    def _read_stations_and_add_to_database(self, station_service: StationService, file:str):
+    def _read_stations_and_add_to_database(self, station_service: StationService, file:str) -> dict:
         stations = station_service.parse_csv(file)
         for station in stations.values():
             print(station)
             db.session.add(station)
         db.session.commit()
+        return stations
 
     def _read_journeys_and_add_to_database(
-        self,journey_service: JourneyService, file:str, optimized:bool
+        self,journey_service: JourneyService, file:str, stations:dict, optimized:bool
     ):
         if optimized:
             print(f'Reading and adding journeys from file {file}')
         else:
             print(f'Reading journeys from file {file}')
-        journeys = journey_service.parse_csv(file, optimized, logs=True)
+        journeys = journey_service.parse_csv(file, stations, optimized, logs=True)
         if optimized:
             return
         print()
@@ -50,12 +51,12 @@ class DatabaseBuilder:
             print('Adding stations to database')
             print('**************')
             if testing or getenv('RUNNING_DEV'):
-                self._read_stations_and_add_to_database(
+                stations = self._read_stations_and_add_to_database(
                     station_service,
                     TestConfig().station_file
                 )
             else:
-                self._read_stations_and_add_to_database(
+                stations = self._read_stations_and_add_to_database(
                     station_service,
                     ProductionConfig().station_file
                 )
@@ -64,15 +65,21 @@ class DatabaseBuilder:
             print('**************')
             print('Adding journeys to database')
             print('**************')
+            if not stations:
+                station_list = station_service.get_all_stations_in_decreasing_id_order()
+                stations = {}
+                for station in station_list:
+                    stations[station.id] = station
             if testing or getenv('RUNNING_DEV'):
                 for file in TestConfig().journey_files:
                     self._read_journeys_and_add_to_database(
                         journey_service,
                         file,
+                        stations,
                         optimized
                     )
             else:
                 for file in ProductionConfig().journey_files:
                     self._read_journeys_and_add_to_database(
-                        journey_service, file, optimized)
+                        journey_service, file, stations, optimized)
         print()
