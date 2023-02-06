@@ -30,21 +30,7 @@ class TestDatabaseBuilder(unittest.TestCase):
             self.builder.build_database(
                 stations_created=False, station_service=self.station_service,
                 journeys_created=False, journey_service=self.journey_service,
-                testing=True, optimized=False
-            )
-            station_count = Station.query.count()
-            journey_count = Journey.query.count()
-
-        self.assertEqual(station_count, 72)
-        self.assertEqual(journey_count, 48)
-
-    def test_built_database_is_correct_size_with_optimization(self):
-        with self.app.app_context():
-            db.drop_all()
-            self.builder.build_database(
-                stations_created=False, station_service=self.station_service,
-                journeys_created=False, journey_service=self.journey_service,
-                testing=True, optimized=True
+                testing=True
             )
             station_count = Station.query.count()
             journey_count = Journey.query.count()

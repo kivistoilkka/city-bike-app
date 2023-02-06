@@ -1,5 +1,4 @@
 from src.models.station import Station
-from src.models.journey import Journey
 
 
 class StationRepository:

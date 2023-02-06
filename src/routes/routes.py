@@ -3,11 +3,10 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 class Routes:
-    def __init__(self, general_repository, station_service, journey_service, db):
+    def __init__(self, general_repository, station_service, journey_service):
         self.general_repository = general_repository
         self.station_service = station_service
         self.journey_service = journey_service
-        self.db = db
 
     def add_routes(self, app):
         @app.route('/')
@@ -23,7 +22,7 @@ class Routes:
             return redirect('/')
 
         @app.route('/stations/<int:id>')
-        def front_station_info():
+        def front_station_info(id):
             return redirect('/')
 
         @app.route('/api/database_info')

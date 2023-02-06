@@ -1,4 +1,5 @@
 from os import getenv
+from sqlalchemy.orm import sessionmaker
 
 from src.config.config import ProductionConfig, TestConfig
 from src.repositories.database import db
@@ -14,30 +15,24 @@ class DatabaseBuilder:
     def __init__(self) -> None:
         pass
 
-    def _read_stations_and_add_to_database(self, station_service: StationService, file:str) -> dict:
+    def _read_stations_and_add_to_database(
+        self, station_service: StationService, session, file:str
+    ) -> dict:
         stations = station_service.parse_csv(file)
-        for station in stations.values():
-            print(station)
-            db.session.add(station)
-        db.session.commit()
+        session.add_all(stations.values())
+        session.commit()
         return stations
 
     def _read_journeys_and_add_to_database(
-        self,journey_service: JourneyService, file:str, stations:dict, optimized:bool
+        self,journey_service: JourneyService, session, file:str, stations:dict
     ):
-        if optimized:
-            print(f'Reading and adding journeys from file {file}')
-        else:
-            print(f'Reading journeys from file {file}')
-        journeys = journey_service.parse_csv(file, stations, optimized, logs=True)
-        if optimized:
-            return
+        print(f'Reading journeys from file {file}')
+        journeys = journey_service.parse_csv(file, stations, logs=False)
+
         print()
         print(f'Adding journeys from {file} to the database')
-        for journey in journeys.values():
-            db.session.add(journey)
-            print('Added:', journey)
-        db.session.commit()
+        session.add_all(journeys.values())
+        session.commit()
 
     def build_database(
         self,
@@ -45,9 +40,11 @@ class DatabaseBuilder:
         station_service,
         journeys_created: bool,
         journey_service,
-        testing: bool,
-        optimized: bool
+        testing: bool
     ):
+        session_maker = sessionmaker()
+        session_maker.configure(bind=db.engine)
+        session = session_maker()
         if not stations_created:
             Station.__table__.create(db.engine)
             print('**************')
@@ -56,11 +53,13 @@ class DatabaseBuilder:
             if testing or getenv('RUNNING_DEV'):
                 stations = self._read_stations_and_add_to_database(
                     station_service,
+                    session,
                     TestConfig().station_file
                 )
             else:
                 stations = self._read_stations_and_add_to_database(
                     station_service,
+                    session,
                     ProductionConfig().station_file
                 )
         print()
@@ -78,12 +77,12 @@ class DatabaseBuilder:
                 for file in TestConfig().journey_files:
                     self._read_journeys_and_add_to_database(
                         journey_service,
+                        session,
                         file,
-                        stations,
-                        optimized
+                        stations
                     )
             else:
                 for file in ProductionConfig().journey_files:
                     self._read_journeys_and_add_to_database(
-                        journey_service, file, stations, optimized)
+                        journey_service, session, file, stations)
         print()

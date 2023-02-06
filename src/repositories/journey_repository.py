@@ -74,4 +74,3 @@ class JourneyRepository:
         journeys = Journey.query.order_by(Journey.duration.desc()).limit(
             upper-lower).offset(lower).all()
         return journeys
-

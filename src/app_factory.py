@@ -21,8 +21,12 @@ class AppFactory:
         pass
 
     @staticmethod
-    def create_app(testing=False, build_optimized=False) -> Flask:
-        app = Flask(__name__, static_folder='../build', template_folder='../build', static_url_path='/')
+    def create_app(testing=False) -> Flask:
+        app = Flask(
+            __name__,
+            static_folder='../build', template_folder='../build',
+            static_url_path='/'
+        )
         app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
         if testing or getenv('RUNNING_DEV'):
@@ -56,16 +60,14 @@ class AppFactory:
                     station_service,
                     journeys_created,
                     journey_service,
-                    testing,
-                    build_optimized
+                    testing
                 )
 
         CORS(app)
         Routes(
             general_repository,
             station_service,
-            journey_service,
-            db
+            journey_service
         ).add_routes(app)
 
         return app

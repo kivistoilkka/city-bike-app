@@ -5,5 +5,5 @@ from src.app_factory import AppFactory
 
 @pytest.fixture
 def app():
-    app = AppFactory().create_app(testing=True, build_optimized=True)
+    app = AppFactory().create_app(testing=True)
     return app
