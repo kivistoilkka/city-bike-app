@@ -18,7 +18,9 @@ class DatabaseBuilder:
     def _read_stations_and_add_to_database(
         self, station_service: StationService, session, file: str
     ) -> dict:
+        print(f'Reading stations from file {file}')
         stations = station_service.parse_csv(file)
+        print(f'Adding stations from {file} to the database')
         session.add_all(stations.values())
         session.commit()
         return stations
@@ -28,11 +30,10 @@ class DatabaseBuilder:
     ):
         print(f'Reading journeys from file {file}')
         journeys = journey_service.parse_csv(file, stations, logs=False)
-
-        print()
         print(f'Adding journeys from {file} to the database')
         session.add_all(journeys.values())
         session.commit()
+        print()
 
     def build_database(
         self,
