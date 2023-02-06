@@ -12,9 +12,9 @@ class Station(db.Model):
     y_coord = Column(Numeric(asdecimal=False))
     departures = db.relationship('Journey', backref='journey')
 
-    @property
-    def returns(self):
-        return object_session(self).query(Journey).filter(Journey.return_station == self.id).count()
+    # @property
+    # def returns(self):
+    #     return object_session(self).query(Journey).filter(Journey.return_station == self.id).count()
 
     def __init__(self, id, name_fi, address_fi, x_coord, y_coord):
         self.id = id
@@ -34,6 +34,6 @@ x={self.x_coord}, y={self.y_coord}'
             'address_fi': self.address_fi,
             'x_coord': self.x_coord,
             'y_coord': self.y_coord,
-            'departures': len(self.departures),
-            'returns': self.returns
+            #'departures': len(self.departures),
+            #'returns': self.returns
         }

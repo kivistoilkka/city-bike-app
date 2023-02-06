@@ -1,5 +1,5 @@
 from src.models.station import Station
-
+from src.models.journey import Journey
 
 class StationRepository:
     def __init__(self, db) -> None:
@@ -34,5 +34,5 @@ class StationRepository:
     def get_journeys_to_and_from_station(self, id: int) -> dict:
         station = self.get_station(id)
         departures = len(station.departures)
-        returns = station.returns
+        returns = Journey.query.filter(Journey.return_station == id).count()
         return {'departures': departures, 'returns': returns}
